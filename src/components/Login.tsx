@@ -1,9 +1,8 @@
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { Navigate } from "react-router";
-import useAuth from "../../hooks/useAuth";
-import Loading from "../utils/Loading";
-import "../utils/style/Form.scss";
-
+import useAuth from "../hooks/useAuth";
+import Loading from "./Loading";
+import "./style/Form.scss";
 function Login() {
     const [formLoading, setFormLoading] = useState<ReactElement<any, any>>();
     const [formError, setFormError] = useState<loginFormError>();
@@ -17,10 +16,10 @@ function Login() {
             email: formData.get("email"),
             password: formData.get("password"),
         };
-        const loginResponse = await login(form);
-        if (loginResponse.status !== 200) {
-            setFormLoading(<></>);
-            return readErrorMessage(loginResponse.body.error, setFormError);
+        const response = await login(form);
+        setFormLoading(<></>);
+        if (response.status !== 200 && response.status!==500) {
+            readErrorMessage(response.body.error, setFormError);
         } else {
             setLoggedIn(true);
         }

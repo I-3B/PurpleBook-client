@@ -11,7 +11,7 @@ function useAuth() {
     const token = localStorage.getItem("token");
     if (token !== null) tokenExists = true;
     const [authed, setAuthed] = useState<Boolean>(tokenExists);
-
+    //TODO add check token
     return {
         authed,
         login: async (form: User) => {

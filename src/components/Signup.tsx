@@ -1,9 +1,9 @@
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { Navigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import { fetchAPIMultiPart } from "../../utils/fetchAPI";
-import Loading from "../utils/Loading";
-import "../utils/style/Form.scss";
+import useAuth from "../hooks/useAuth";
+import { fetchAPIMultiPart } from "../utils/fetchAPI";
+import Loading from "./Loading";
+import "./style/Form.scss";
 
 function Signup() {
     const [formLoading, setFormLoading] = useState<ReactElement<any, any>>();
@@ -18,7 +18,7 @@ function Signup() {
         const formData = new FormData(e.currentTarget);
         const response = await fetchAPIMultiPart("auth/signup", "POST", formData);
 
-        if (response.status !== 201) {
+        if (response.status !== 201 && response.status !== 500) {
             return readErrorMessages(response.body.errors, setFormErrors);
         }
 

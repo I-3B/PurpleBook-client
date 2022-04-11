@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Loading from "./components/utils/Loading";
+import Loading from "./components/Loading";
 
 function App() {
     return (
