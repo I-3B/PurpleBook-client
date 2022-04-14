@@ -7,27 +7,27 @@ import "./style/Form.scss";
 
 function Signup() {
     const [formLoading, setFormLoading] = useState<ReactElement<any, any>>();
-    const [formErrors, setFormErrors] = useState<signupFormErrors>();
+    const [formErrors, setFormErrors] = useState<signupFormErrors | null>(null);
     const { authed, login } = useAuth();
     const [loggedIn, setLoggedIn] = useState(authed);
 
     const formSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setFormLoading(<Loading />);
-        setFormErrors(undefined);
+        setFormErrors(null);
         const formData = new FormData(e.currentTarget);
-        const response = await fetchAPIMultiPart("auth/signup", "POST", formData);
+        const res = await fetchAPIMultiPart("auth/signup", "POST", formData);
 
-        if (response.status !== 201 && response.status !== 500) {
-            return readErrorMessages(response.body.errors, setFormErrors);
+        if (res.status !== 201 && res.status !== 500) {
+            return readErrorMessages(res.body.errors, setFormErrors);
         }
 
         setFormLoading(<></>);
 
         const email = formData.get("email");
         const password = formData.get("password");
-        const loginResponse = await login({ email, password });
-        if (loginResponse.status === 200) setLoggedIn(true);
+        const loginRes = await login({ email, password });
+        if (loginRes.status === 200) setLoggedIn(true);
     };
 
     if (loggedIn) return <Navigate to="/" />;

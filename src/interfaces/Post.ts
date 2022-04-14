@@ -1,13 +1,15 @@
+import { BufferData } from "./User";
+
 export default interface Post {
     _id: string;
     author: {
         _id: string;
         firstName: string;
         lastName: string;
-        imageMini: { data: Buffer; contentType: string };
+        imageMini: BufferData;
     };
     content: string;
-    image: { data: string; contentType: string };
+    image: BufferData;
     likesCount: number;
     likedByUser: boolean;
     commentsCount: number;

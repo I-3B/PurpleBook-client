@@ -1,0 +1,4 @@
+@use "var";
+%card {
+  background-color: var.$background;
+}

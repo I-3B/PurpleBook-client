@@ -5,10 +5,9 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "npm start",
-            "type": "pwa-chrome",
+            "name": "Chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "type": "chrome",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
         }

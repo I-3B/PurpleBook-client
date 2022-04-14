@@ -1,8 +1,8 @@
-$main-color-1: #5badf8;
+@use "var";
 $transition: 0.4s;
 .page-header {
   max-width: 100%;
-  background-color: rgb(210, 85, 85);
+  background-color: var.$primary;
   padding: 0.3rem;
   ul {
     display: flex;
@@ -26,10 +26,12 @@ $transition: 0.4s;
     transition: color $transition, text-decoration $transition;
   }
   a:hover {
-    color: $main-color-1;
-    text-decoration-color: $main-color-1;
+    color: var.$primary;
+    text-decoration-color: var.$primary;
   }
-
+  img {
+    max-width: 4rem;
+  }
   .li-logo {
     margin-right: auto;
   }

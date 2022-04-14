@@ -10,12 +10,15 @@ import Loading from "./components/Loading";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Post from "./components/Post";
+import Profile from "./components/Profile";
 import RequireAuth from "./components/RequireAuth";
 import Signup from "./components/Signup";
 import { AuthProvider } from "./hooks/useAuth";
-import "./index.css";
+import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
-export const BASE_URL = "http://localhost:8080/api";
+export const API_BASE_URL = "http://localhost:8080/api";
+export const HOST = "http://localhost:3000";
+
 ReactDOM.render(
     <Router>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -26,8 +29,9 @@ ReactDOM.render(
                     <Route path="/login" element={<Login />} />
                     <Route path="/" element={<RequireAuth />}>
                         <Route path="/" element={<Feed />}></Route>
-                        <Route path="/posts/:postId" element={<Post />}></Route>
-                        <Route path="/logout" element={<Logout />}></Route>
+                        <Route path="/posts/:postId" element={<Post />} />
+                        <Route path="/users/:userId" element={<Profile />} />
+                        <Route path="/logout" element={<Logout />} />
                         <Route path="/*" element={<Loading />} />
                     </Route>
                 </Routes>

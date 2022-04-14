@@ -1,9 +1,9 @@
 import { NotificationManager } from "react-notifications";
-import { BASE_URL } from "..";
-const token = localStorage.getItem("token");
-export const fetchAPI = async (route: string, method: string, formData?: object) => {
+import { API_BASE_URL } from "..";
+export const fetchAPI = async (route: string, method: string = "GET", formData?: object) => {
+    const token = localStorage.getItem("token");
     let status: number = 500;
-    const body = await fetch(`${BASE_URL}/${route}`, {
+    const body = await fetch(`${API_BASE_URL}/${route}`, {
         headers: {
             mode: "cors",
             authorization: `Bearer ${token}`,
@@ -20,18 +20,18 @@ export const fetchAPI = async (route: string, method: string, formData?: object)
             try {
                 return JSON.parse(body);
             } catch {
-                throw Error(body);
+                return body;
             }
         })
-        .catch((error) => {
-            NotificationManager.error(error.message);
+        .catch((err) => {
+            NotificationManager.error(err.message, "Something went wrong :(");
         });
     return { body, status };
 };
 export const fetchAPIMultiPart = async (route: string, method: string, formData: FormData) => {
+    const token = localStorage.getItem("token");
     let status: number = 500;
-    let error: string | undefined;
-    const body = await fetch(`${BASE_URL}/${route}`, {
+    const body = await fetch(`${API_BASE_URL}/${route}`, {
         headers: {
             mode: "cors",
             authorization: `Bearer ${token}`,
@@ -41,12 +41,17 @@ export const fetchAPIMultiPart = async (route: string, method: string, formData:
     })
         .then((res) => {
             status = res.status;
-            return res;
+            return res.text();
         })
-        .then((res) => res.json())
-        .catch((reason) => {
-            error = reason;
-            NotificationManager.error(reason.message);
+        .then((body) => {
+            try {
+                return JSON.parse(body);
+            } catch {
+                return body;
+            }
+        })
+        .catch((err) => {
+            NotificationManager.error(err.message, "Something went wrong :(");
         });
-    return { body, status, error };
+    return { body, status };
 };

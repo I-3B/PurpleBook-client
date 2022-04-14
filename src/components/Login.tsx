@@ -9,18 +9,15 @@ function Login() {
     const { authed, login } = useAuth();
     const [loggedIn, setLoggedIn] = useState(authed);
     const formSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
-        setFormLoading(<Loading />);
         e.preventDefault();
+        setFormLoading(<Loading />);
         const formData = new FormData(e.currentTarget);
-        const form = {
-            email: formData.get("email"),
-            password: formData.get("password"),
-        };
-        const response = await login(form);
+        const formAsJSON = JSON.parse(JSON.stringify(Object.fromEntries(formData)));
+        const res = await login(formAsJSON);
         setFormLoading(<></>);
-        if (response.status !== 200 && response.status!==500) {
-            readErrorMessage(response.body.error, setFormError);
-        } else {
+        if (res.status === 400 || res.status === 404) {
+            readErrorMessage(res.body.error, setFormError);
+        } else if (res.status === 200) {
             setLoggedIn(true);
         }
     };

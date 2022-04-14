@@ -1,10 +1,14 @@
+.lds-container {
+  margin: auto;
+}
 .lds-circle {
   margin: auto;
   display: block;
+  max-width: fit-content;
   transform: translateZ(1px);
 }
 .lds-circle > div {
-  display: block;
+  display: inline-block;
   width: 64px;
   height: 64px;
   margin: 8px;

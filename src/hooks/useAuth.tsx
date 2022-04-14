@@ -15,15 +15,16 @@ function useAuth() {
     return {
         authed,
         login: async (form: User) => {
-            const result = await fetchAPI("auth/login", "POST", form);
-            if (result.status === 200) {
-                localStorage.setItem("token", result.body.token);
-                localStorage.setItem("isAdmin", result.body.isAdmin);
+            const res = await fetchAPI("auth/login", "POST", form);
+            if (res.status === 200) {
+                localStorage.setItem("token", res.body.token);
+                localStorage.setItem("userId", res.body.userId);
+                res.body.isAdmin && localStorage.setItem("isAdmin", res.body.isAdmin);
                 setAuthed(true);
             } else {
                 setAuthed(false);
             }
-            return result;
+            return res;
         },
         logout: () => {
             localStorage.clear();

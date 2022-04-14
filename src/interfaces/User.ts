@@ -3,9 +3,14 @@ export default interface User {
     lastName: String;
     email: String;
     password: String;
-    imageMini: { data: Buffer; contentType: String };
-    imageFul: { data: Buffer; contentType: String };
+    imageMini: BufferData;
+    imageFul: BufferData;
     friends: Array<String>;
     friendRequests: Array<{ user: String; viewed: Boolean }>;
     isAdmin?: Boolean;
+}
+
+export interface BufferData {
+    data: Buffer;
+    contentType: string;
 }

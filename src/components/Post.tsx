@@ -12,17 +12,18 @@ function Feed() {
     const [error, setError] = useState("");
     const { postId } = useParams();
     const getPost = async () => {
-        const response = await fetchAPI(`/posts/${postId}`, "GET");
-        if (response.status === 404) {
-            setError("404 Post Not Found");
+        const res = await fetchAPI(`/posts/${postId}`);
+        if (res.status === 404) {
+            setError(res.status + " " + res.body);
         } else {
-            setPost(response.body.post);
+            setPost(res.body.post);
         }
     };
     const getComments = async () => {
-        const response = await fetchAPI(`/posts/${postId}/comments`, "GET");
-        if (response.status !== 404) {
-            setComments(response.body.comments);
+        const res = await fetchAPI(`/posts/${postId}/comments`);
+        if (res.status !== 404) {
+            setComments(res.body.comments);
+        } else {
         }
     };
     useEffect(() => {
