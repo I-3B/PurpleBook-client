@@ -5,7 +5,7 @@ interface Props {
     type: string;
 }
 
-function Image({ image, type }: Props) {
+function ImageBfr({ image, type }: Props) {
     if (!image || image.data.length === 0) {
         return getImageForType(type);
     }
@@ -30,4 +30,4 @@ const getImageForType = (type: string) => {
     }
     return <img src={imageSrc} alt={type} />;
 };
-export default Image;
+export default ImageBfr;
