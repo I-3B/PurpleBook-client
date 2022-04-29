@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { fetchAPI } from "../utils/fetchAPI";
-import Image from "./Image";
+import ImageBfr from "./ImageBfr";
 import "./style/Header.scss";
 
 function Header() {
@@ -20,18 +20,31 @@ function Header() {
             <nav>
                 <ul>
                     <li className="li-logo">
-                        <Link to={"/"}>OdinBook</Link>
+                        <Link to="/">OdinBook</Link>
                     </li>
                     {authed && (
                         <>
-                            <li>n:{userData?.notificationsCount}</li>
-                            <li>fr:{userData?.friendRequestsCount}</li>
-                            <li></li>
                             <li>
-                                <Link to={"/users/" + userData?._id}>{userData?.firstName}</Link>
+                                <Link to="/notifications" className="number-in-icon">
+                                    <img src="/assets/bell.png" alt="bell" />
+                                    {userData?.notificationsCount !== 0 && (
+                                        <span>{userData?.notificationsCount}</span>
+                                    )}
+                                </Link>
                             </li>
                             <li>
-                                <Image image={userData?.imageMini} type="profile" />
+                                <Link to="/friends" className="number-in-icon">
+                                    <img src="/assets/friends.png" alt="friends" />
+                                    {userData?.friendRequestsCount !== 0 && (
+                                        <span>{userData?.friendRequestsCount}</span>
+                                    )}
+                                </Link>
+                            </li>
+                            <li className="profile">
+                                <Link to={"/users/" + userData?._id}>
+                                    <span>{userData?.firstName}</span>
+                                    <ImageBfr image={userData?.imageMini} type="profile" />
+                                </Link>
                             </li>
                             <li>
                                 <Link to={"/logout"}>Logout</Link>
