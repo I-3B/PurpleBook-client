@@ -1,6 +1,6 @@
 import { BufferData } from "./User";
 
-export default interface Post {
+export default interface PostI {
     _id: string;
     author: {
         _id: string;

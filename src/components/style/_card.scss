@@ -1,4 +1,38 @@
 @use "var";
 %card {
-  background-color: var.$background;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  margin: auto;
+  padding: 1rem 0;
+  gap: 0.7rem;
+  > * {
+    margin: 0 1rem;
+  }
+  header {
+    position: relative;
+    .posted-at {
+      position: absolute;
+      right: 1rem;
+      top: 0px;
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+  .buttons {
+    display: flex;
+    button {
+      transition: 0.3s;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
+    button:hover,
+    a:hover {
+      transform: scale(1.1);
+    }
+  }
+
 }

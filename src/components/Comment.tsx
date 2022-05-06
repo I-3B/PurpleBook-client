@@ -1,0 +1,40 @@
+import he from "he";
+import parse from "html-react-parser";
+import { useState } from "react";
+import { HOST } from "..";
+import CommentI from "../interfaces/Comment";
+import Author from "./Author";
+import LikeButton from "./LikeButton";
+import LinkButton from "./LinkButton";
+import PostedAt from "./PostedAt";
+import "./style/Comment.scss";
+interface Props {
+    comment: CommentI;
+    postId: string;
+}
+function Comment({ comment, postId }: Props) {
+    const [likesCount, setLikesCount] = useState(comment.likesCount);
+    const route = `posts/${postId}/comments/${comment._id}`;
+    const updatedLikesCountCallback = (count: number) => {
+        setLikesCount((likesCount) => likesCount + count);
+    };
+    return (
+        <article key={comment._id} id={comment._id} className="comment">
+            <header>
+                <Author author={comment.author} />
+                <PostedAt createdAt={comment.createdAt} />
+            </header>
+            <div>{parse(he.decode(comment.content))}</div>
+            <div className="buttons">
+                <LikeButton
+                    route={`${route}/likes`}
+                    likedByUser={comment.likedByUser}
+                    updateLikesCountBy={updatedLikesCountCallback}
+                />
+                <span>{likesCount}</span>
+                <LinkButton link={`${HOST}/${route}`} />
+            </div>
+        </article>
+    );
+}
+export default Comment;

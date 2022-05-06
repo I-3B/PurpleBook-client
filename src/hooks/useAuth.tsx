@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import User from "../interfaces/User";
-import { fetchAPI } from "../utils/fetchAPI";
+import UserI from "../interfaces/User";
+import { fetchAPIForm } from "../utils/fetchAPI";
 
 const authContext = React.createContext<any>(null);
 interface Props {
@@ -14,8 +14,8 @@ function useAuth() {
     //TODO add check token
     return {
         authed,
-        login: async (form: User) => {
-            const res = await fetchAPI("auth/login", "POST", form);
+        login: async (form: UserI) => {
+            const res = await fetchAPIForm("auth/login", "POST", form);
             if (res.status === 200) {
                 localStorage.setItem("token", res.body.token);
                 localStorage.setItem("userId", res.body.userId);

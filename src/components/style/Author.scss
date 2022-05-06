@@ -1,0 +1,20 @@
+.author {
+  a {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: floralwhite;
+    font-size: 1.2rem;
+  }
+  a:hover {
+    text-decoration: underline;
+    img {
+      filter: brightness(0.9);
+    }
+  }
+  img {
+    border-radius: 50%;
+    width: 3rem;
+  }
+}

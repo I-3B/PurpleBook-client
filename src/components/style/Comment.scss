@@ -1,0 +1,21 @@
+@use "card";
+@use "var";
+.comment {
+  @extend %card;
+  background-color: var.$background-2;
+  width: 100%;
+  .buttons {
+    height: 1.5rem;
+    width: 100%;
+    display: flex;
+    span {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+  }
+}
+.highlight {
+  transition: 3s;
+  background-color: #555;
+}

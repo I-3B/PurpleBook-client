@@ -6,7 +6,7 @@ interface Props {
 }
 
 function ImageBfr({ image, type }: Props) {
-    if (!image || image.data.length === 0) {
+    if (!image || !image.contentType.startsWith("image")) {
         return getImageForType(type);
     }
     let b64;
@@ -19,15 +19,15 @@ function ImageBfr({ image, type }: Props) {
 }
 
 const getImageForType = (type: string) => {
-    let imageSrc: string = "assets/";
+    let imageSrc: string = "/assets/";
     switch (type) {
         case "profile":
             imageSrc += "profile.png";
             break;
         case "post":
-            imageSrc += "post.png";
+            imageSrc = "";
             break;
     }
-    return <img src={imageSrc} alt={type} />;
+    return imageSrc ? <img src={imageSrc} alt={type} /> : <></>;
 };
 export default ImageBfr;

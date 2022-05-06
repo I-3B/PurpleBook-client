@@ -1,6 +1,7 @@
 @use "var";
 $transition: 0.4s;
 .page-header {
+  max-width: 100%;
   background-color: var.$primary;
   padding: 0.3rem;
   * {

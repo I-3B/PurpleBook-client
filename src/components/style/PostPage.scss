@@ -1,0 +1,28 @@
+@use "var";
+@use "Form";
+.post-comments-container {
+  padding: 1rem;
+  .comments {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 1rem auto;
+    width: 90%;
+    > header {
+      font-size: 2rem;
+    }
+    .comment-form {
+      @extend .form;
+      margin: auto;
+      background-color: var.$background-1;
+      padding: 1rem;
+      box-sizing: border-box;
+      min-width: 100%;
+      .editor {
+        .ql-editor {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

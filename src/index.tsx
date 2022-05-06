@@ -9,7 +9,8 @@ import Header from "./components/Header";
 import Loading from "./components/Loading";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
-import Post from "./components/Post";
+import NewPost from "./components/NewPost";
+import PostPage from "./components/PostPage";
 import Profile from "./components/Profile";
 import RequireAuth from "./components/RequireAuth";
 import Signup from "./components/Signup";
@@ -28,8 +29,17 @@ ReactDOM.render(
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/" element={<RequireAuth />}>
-                        <Route path="/" element={<Feed />}></Route>
-                        <Route path="/posts/:postId" element={<Post />} />
+                        <Route path="/" element={<Feed />} />
+                        <Route path="/new" element={<NewPost />} />
+                        <Route path="/posts/:postId" element={<PostPage />} />
+                        <Route
+                            path="/posts/:postId/comments"
+                            element={<PostPage goToComment={true} />}
+                        />
+                        <Route
+                            path="/posts/:postId/comments/:commentId"
+                            element={<PostPage goToComment={true} />}
+                        />
                         <Route path="/users/:userId" element={<Profile />} />
                         <Route path="/logout" element={<Logout />} />
                         <Route path="/*" element={<Loading />} />

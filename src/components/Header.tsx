@@ -9,7 +9,7 @@ function Header() {
     const { authed } = useAuth();
     const [userData, setUserData] = useState<profile>();
     const getUserData = async () => {
-        const res = await fetchAPI("/users/profile");
+        const res = await fetchAPI("users/profile");
         setUserData(res.body.user);
     };
     useEffect(() => {

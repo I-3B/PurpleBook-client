@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BufferData } from "../interfaces/User";
 import { fetchAPI } from "../utils/fetchAPI";
-import Image from "./Image";
+import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
 
 function Profile() {
@@ -18,7 +18,7 @@ function Profile() {
     if (!userData) return <Loading />;
     return (
         <section>
-            <Image image={userData.imageFull} type="profile" />
+            <ImageBfr image={userData.imageFull} type="profile" />
             <p>{userData.firstName + " " + userData.lastName}</p>
         </section>
     );

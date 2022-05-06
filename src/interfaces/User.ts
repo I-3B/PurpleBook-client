@@ -1,4 +1,4 @@
-export default interface User {
+export default interface UserI {
     firstName: String;
     lastName: String;
     email: String;

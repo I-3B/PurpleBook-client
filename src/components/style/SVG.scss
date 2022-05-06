@@ -1,0 +1,12 @@
+@use "var";
+svg g {
+  fill: var.$text;
+}
+.filled {
+  fill: red;
+  stroke: red;
+}
+.not-filled {
+  fill: transparent;
+  stroke: var.$text;
+}

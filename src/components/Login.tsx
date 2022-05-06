@@ -1,6 +1,7 @@
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { Navigate } from "react-router";
 import useAuth from "../hooks/useAuth";
+import { responseError } from "../interfaces/responseError";
 import Loading from "./Loading";
 import "./style/Form.scss";
 function Login() {
@@ -48,12 +49,7 @@ interface loginFormError {
     email?: ReactElement<any, any>;
     password?: ReactElement<any, any>;
 }
-interface responseError {
-    location: string;
-    msg: string;
-    param: string;
-    value: string;
-}
+
 const readErrorMessage = (error: responseError, setError: Dispatch<SetStateAction<any>>) => {
     let errorMsg;
     if (error.param === "email") {
