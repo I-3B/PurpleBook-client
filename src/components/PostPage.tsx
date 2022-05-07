@@ -73,6 +73,7 @@ function PostPage({ goToComment }: Props) {
         if (res.status === 400) {
             setCommentFormError(res.body.errors);
         } else if (res.status === 201) {
+            setCommentFormError(undefined);
             editorTextRef.current?.setText("");
             await getComments();
             navigate(`${route}/comments/${res.body.commentId}`);
@@ -93,7 +94,7 @@ function PostPage({ goToComment }: Props) {
                 unHighlightAllComments();
             }
         }
-    }, [comments, commentId]);
+    }, [comments, commentId, goToComment]);
     if (error)
         return (
             <Message>
@@ -116,15 +117,17 @@ function PostPage({ goToComment }: Props) {
                         <header>Add comment</header>
                         <Editor ref={editorTextRef} />
                         <input type="submit" />
-                        <ul>
-                            {commentFormError?.map((error, index) => {
-                                return (
-                                    <li key={index} className="error">
-                                        {error.msg};
-                                    </li>
-                                );
-                            })}
-                        </ul>
+                        {commentFormError && (
+                            <ul>
+                                {commentFormError.map((error, index) => {
+                                    return (
+                                        <li key={index} className="error">
+                                            {error.msg};
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
                     </form>
                 )}
                 {(() => {
