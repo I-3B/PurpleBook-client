@@ -30,7 +30,7 @@ ReactDOM.render(
                     <Route path="/login" element={<Login />} />
                     <Route path="/" element={<RequireAuth />}>
                         <Route path="/" element={<Feed />} />
-                        <Route path="/new" element={<NewPost />} />
+                        <Route path="/new-post" element={<NewPost />} />
                         <Route path="/posts/:postId" element={<PostPage />} />
                         <Route
                             path="/posts/:postId/comments"
