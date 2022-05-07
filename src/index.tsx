@@ -4,6 +4,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import EditPost from "./components/EditPost";
 import Feed from "./components/Feed";
 import Header from "./components/Header";
 import Loading from "./components/Loading";
@@ -32,6 +33,7 @@ ReactDOM.render(
                         <Route path="/" element={<Feed />} />
                         <Route path="/new-post" element={<NewPost />} />
                         <Route path="/posts/:postId" element={<PostPage />} />
+                        <Route path="/posts/:postId/edit" element={<EditPost />} />
                         <Route
                             path="/posts/:postId/comments"
                             element={<PostPage goToComment={true} />}
