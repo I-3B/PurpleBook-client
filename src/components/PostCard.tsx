@@ -16,7 +16,7 @@ interface Props {
 }
 function PostCard({ post, children, linkToPost = true }: Props) {
     const [likesCount, setLikesCount] = useState(post.likesCount);
-    const route = `posts/${post._id}`;
+    const route = `/posts/${post._id}`;
     const updatedLikesCountCallback = (count: number) => {
         setLikesCount((likesCount) => likesCount + count);
     };
@@ -49,13 +49,11 @@ function PostCard({ post, children, linkToPost = true }: Props) {
                         updateLikesCountBy={updatedLikesCountCallback}
                     />
                 </div>
-                {linkToPost && (
-                    <div className="comment-button">
-                        <Link to={`${route}/comments/`}>
-                            <CommentSvg />
-                        </Link>
-                    </div>
-                )}
+                <div className="comment-button">
+                    <Link to={`${route}/comments/`}>
+                        <CommentSvg />
+                    </Link>
+                </div>
                 <div className="share-button">
                     <LinkButton link={`${HOST}/${route}`} />
                 </div>
