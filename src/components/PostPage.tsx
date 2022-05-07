@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CommentI from "../interfaces/Comment";
 import PostI from "../interfaces/Post";
+import { responseError } from "../interfaces/responseError";
 import { fetchAPI, fetchAPIForm } from "../utils/fetchAPI";
 import Author from "./Author";
 import Comment from "./Comment";
@@ -20,9 +21,10 @@ function PostPage({ goToComment }: Props) {
     const [post, setPost] = useState<PostI>();
     const [comments, setComments] = useState<Array<CommentI>>();
     const [error, setError] = useState("");
+    const [commentFormError, setCommentFormError] = useState<Array<responseError>>();
     const { postId, commentId } = useParams();
-    const [commentText, setCommentText] = useState("");
     const navigate = useNavigate();
+    const route = `/posts/${postId}`;
     const getPost = async () => {
         const res = await fetchAPI(`posts/${postId}`);
         if (res.status === 404) {
@@ -31,8 +33,14 @@ function PostPage({ goToComment }: Props) {
             setPost(res.body.post);
         }
     };
+    const getComment = async () => {
+        const res = await fetchAPI(`${route}/comments/${commentId}`);
+        if (res.status !== 404) {
+            setComments([res.body.comment]);
+        }
+    };
     const getComments = async () => {
-        const res = await fetchAPI(`posts/${postId}/comments/?`);
+        const res = await fetchAPI(`${route}/comments`);
         if (res.status !== 404) {
             setComments(res.body.comments);
         }
@@ -46,6 +54,11 @@ function PostPage({ goToComment }: Props) {
     const highlight = (element: Element | null) => {
         element?.classList.add("highlight");
     };
+    const unHighlightAllComments = () => {
+        Array.from(document.querySelectorAll(".comment")).forEach((comment) =>
+            comment.classList.remove("highlight")
+        );
+    };
     const newComment = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const submitButton = e.currentTarget.querySelector(
@@ -53,32 +66,31 @@ function PostPage({ goToComment }: Props) {
         ) as HTMLInputElement;
         submitButton.disabled = true;
         const editorText = editorTextRef.current?.getText();
-        const res = await fetchAPIForm(`posts/${post?._id}/comments`, "POST", {
+        const res = await fetchAPIForm(`${route}/comments`, "POST", {
             content: editorText || "",
         });
         submitButton.disabled = false;
         if (res.status === 400) {
-            // setErrors(res.body.errors);
+            setCommentFormError(res.body.errors);
         } else if (res.status === 201) {
             editorTextRef.current?.setText("");
             await getComments();
-            navigate(`/posts/${post?._id}/comments/${res.body.commentId}`);
+            navigate(`${route}/comments/${res.body.commentId}`);
         }
     };
     useEffect(() => {
         getPost();
-        getComments();
-    }, []);
+        if (commentId) getComment();
+        else getComments();
+    }, [commentId]);
     useEffect(() => {
         if (goToComment) {
             if (commentId && comments) {
-                Array.from(document.querySelectorAll(".comment")).forEach((comment) =>
-                    comment.classList.remove("highlight")
-                );
                 goTo(document.getElementById(commentId));
                 highlight(document.getElementById(commentId));
             } else {
                 goTo(document.getElementsByClassName("comments")[0]);
+                unHighlightAllComments();
             }
         }
     }, [comments, commentId]);
@@ -104,6 +116,15 @@ function PostPage({ goToComment }: Props) {
                         <header>Add comment</header>
                         <Editor ref={editorTextRef} />
                         <input type="submit" />
+                        <ul>
+                            {commentFormError?.map((error, index) => {
+                                return (
+                                    <li key={index} className="error">
+                                        {error.msg};
+                                    </li>
+                                );
+                            })}
+                        </ul>
                     </form>
                 )}
                 {(() => {
