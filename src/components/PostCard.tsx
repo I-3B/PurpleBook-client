@@ -7,6 +7,7 @@ import PostI from "../interfaces/Post";
 import ImageBfr from "./ImageBfr";
 import LikeButton from "./LikeButton";
 import LinkButton from "./LinkButton";
+import SettingsDropdown from "./SettingsDropdown";
 import "./style/PostCard.scss";
 import { CommentSvg } from "./SVG";
 interface Props {
@@ -20,8 +21,19 @@ function PostCard({ post, children, linkToPost = true }: Props) {
     const updatedLikesCountCallback = (count: number) => {
         setLikesCount((likesCount) => likesCount + count);
     };
+    const deletePost = () => {
+        //TODO delete post
+    };
     return (
         <article key={post._id} id={post._id} className="post-card">
+            <SettingsDropdown>
+                <li>
+                    <a href={`${route}/edit`}>Edit</a>
+                </li>
+                <li>
+                    <button onClick={deletePost}>delete</button>
+                </li>
+            </SettingsDropdown>
             {children}
             <WithLink link={linkToPost ? route : undefined}>
                 <div className="content">{parse(he.decode(post.content))}</div>

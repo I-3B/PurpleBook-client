@@ -7,6 +7,7 @@ import Author from "./Author";
 import LikeButton from "./LikeButton";
 import LinkButton from "./LinkButton";
 import PostedAt from "./PostedAt";
+import SettingsDropdown from "./SettingsDropdown";
 import "./style/Comment.scss";
 interface Props {
     comment: CommentI;
@@ -18,8 +19,19 @@ function Comment({ comment, postId }: Props) {
     const updatedLikesCountCallback = (count: number) => {
         setLikesCount((likesCount) => likesCount + count);
     };
+    const deleteComment = () => {
+        //TODO delete comment
+    };
     return (
         <article key={comment._id} id={comment._id} className="comment">
+            <SettingsDropdown>
+                <li>
+                    <a href={`${route}/edit`}>Edit</a>
+                </li>
+                <li>
+                    <button onClick={deleteComment}>Delete</button>
+                </li>
+            </SettingsDropdown>
             <header>
                 <Author author={comment.author} />
                 <PostedAt createdAt={comment.createdAt} />
