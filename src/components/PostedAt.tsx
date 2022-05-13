@@ -28,7 +28,7 @@ const getDateFormatted = (createdAt: Date): string => {
     ];
     let timeElapsed: string = "";
 
-    if (days > 7) return new Date(createdAt).toDateString();
+    if (days > 7) return new Date(createdAt).toLocaleDateString();
     else if (days > 0) timeElapsed = days + " days";
     else if (hours > 0) timeElapsed = hours + " hours";
     else if (minutes > 0) timeElapsed = minutes + " minutes";
