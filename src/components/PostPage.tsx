@@ -1,5 +1,6 @@
+import he from "he";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CommentI from "../interfaces/Comment";
 import PostI from "../interfaces/Post";
 import { responseError } from "../interfaces/responseError";
@@ -12,11 +13,7 @@ import Message from "./Message";
 import PostCard from "./PostCard";
 import PostedAt from "./PostedAt";
 import "./style/PostPage.scss";
-
-interface Props {
-    goToComment?: boolean;
-}
-function PostPage({ goToComment }: Props) {
+function PostPage() {
     const editorTextRef = useRef<{ getText: () => string; setText: (value: string) => void }>();
     const [post, setPost] = useState<PostI>();
     const [comments, setComments] = useState<Array<CommentI>>();
@@ -24,7 +21,10 @@ function PostPage({ goToComment }: Props) {
     const [commentFormError, setCommentFormError] = useState<Array<responseError>>();
     const { postId, commentId } = useParams();
     const navigate = useNavigate();
+    const location = useLocation().pathname;
     const route = `/posts/${postId}`;
+    const goToComment = location.includes("comments");
+    const editComment = location.includes("edit");
     const getPost = async () => {
         const res = await fetchAPI(`posts/${postId}`);
         if (res.status === 404) {
@@ -59,7 +59,7 @@ function PostPage({ goToComment }: Props) {
             comment.classList.remove("highlight")
         );
     };
-    const newComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    const newCommentSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const submitButton = e.currentTarget.querySelector(
             "input[type=submit]"
@@ -75,26 +75,57 @@ function PostPage({ goToComment }: Props) {
         } else if (res.status === 201) {
             setCommentFormError(undefined);
             editorTextRef.current?.setText("");
+            setComments(undefined);
             await getComments();
             navigate(`${route}/comments/${res.body.commentId}`);
         }
     };
+    const editCommentSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const submitButton = e.currentTarget.querySelector(
+            "input[type=submit]"
+        ) as HTMLInputElement;
+        submitButton.disabled = true;
+        const editorText = editorTextRef.current?.getText();
+        const res = await fetchAPIForm(`${route}/comments/${commentId}`, "PATCH", {
+            content: editorText || "",
+        });
+        submitButton.disabled = false;
+        if (res.status === 400) {
+            setCommentFormError(res.body.errors);
+        } else if (res.status === 200) {
+            setCommentFormError(undefined);
+            editorTextRef.current?.setText("");
+            setComments(undefined);
+            await getComments();
+            navigate(`${route}/comments/${commentId}`);
+        }
+    };
     useEffect(() => {
         getPost();
+    }, []);
+    useEffect(() => {
         if (commentId) getComment();
         else getComments();
     }, [commentId]);
     useEffect(() => {
         if (goToComment) {
-            if (commentId && comments) {
+            if (commentId && comments && !editComment) {
                 goTo(document.getElementById(commentId));
                 highlight(document.getElementById(commentId));
             } else {
-                goTo(document.getElementsByClassName("comments")[0]);
+                goTo(document.querySelector(".comments"));
                 unHighlightAllComments();
             }
         }
-    }, [comments, commentId, goToComment]);
+    }, [comments, commentId, goToComment, editComment]);
+    useEffect(() => {
+        if (editComment && comments) {
+            editorTextRef.current?.setText(he.decode(comments[0].content));
+        } else {
+            editorTextRef.current?.setText("");
+        }
+    }, [editComment, comments]);
     if (error)
         return (
             <Message>
@@ -113,10 +144,13 @@ function PostPage({ goToComment }: Props) {
             <section className="comments">
                 <header>Comments</header>
                 {post._id && (
-                    <form className="comment-form" onSubmit={newComment}>
-                        <header>Add comment</header>
+                    <form
+                        className="comment-form"
+                        onSubmit={editComment ? editCommentSubmitted : newCommentSubmitted}
+                    >
+                        <header>{editComment ? "Edit comment" : "Add comment"}</header>
                         <Editor ref={editorTextRef} />
-                        <input type="submit" />
+                        <input type="submit" value={editComment ? "Edit" : "Add"} />
                         {commentFormError && (
                             <ul>
                                 {commentFormError.map((error, index) => {

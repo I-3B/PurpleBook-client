@@ -15,7 +15,7 @@ interface Props {
 }
 function Comment({ comment, postId }: Props) {
     const [likesCount, setLikesCount] = useState(comment.likesCount);
-    const route = `posts/${postId}/comments/${comment._id}`;
+    const route = `/posts/${postId}/comments/${comment._id}`;
     const updatedLikesCountCallback = (count: number) => {
         setLikesCount((likesCount) => likesCount + count);
     };

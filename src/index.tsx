@@ -34,13 +34,11 @@ ReactDOM.render(
                         <Route path="/new-post" element={<NewPost />} />
                         <Route path="/posts/:postId" element={<PostPage />} />
                         <Route path="/posts/:postId/edit" element={<EditPost />} />
+                        <Route path="/posts/:postId/comments" element={<PostPage />} />
+                        <Route path="/posts/:postId/comments/:commentId" element={<PostPage />} />
                         <Route
-                            path="/posts/:postId/comments"
-                            element={<PostPage goToComment={true} />}
-                        />
-                        <Route
-                            path="/posts/:postId/comments/:commentId"
-                            element={<PostPage goToComment={true} />}
+                            path="/posts/:postId/comments/:commentId/edit"
+                            element={<PostPage />}
                         />
                         <Route path="/users/:userId" element={<Profile />} />
                         <Route path="/logout" element={<Logout />} />
