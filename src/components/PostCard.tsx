@@ -33,7 +33,7 @@ function PostCard({ post, children, postDeleted, linkToPost = true }: Props) {
     };
     return (
         <article key={post._id} id={post._id} className="post-card">
-            <SettingsDropdown>
+            <SettingsDropdown userId={post.author._id}>
                 <li>
                     <a href={`${route}/edit`}>Edit</a>
                 </li>

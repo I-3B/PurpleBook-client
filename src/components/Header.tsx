@@ -11,6 +11,7 @@ function Header() {
     const getUserData = async () => {
         const res = await fetchAPI("users/profile");
         setUserData(res.body.user);
+        localStorage.setItem("userId", res.body.user._id);
     };
     useEffect(() => {
         if (authed) getUserData();

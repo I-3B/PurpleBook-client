@@ -11,14 +11,12 @@ function useAuth() {
     const token = localStorage.getItem("token");
     if (token !== null) tokenExists = true;
     const [authed, setAuthed] = useState<Boolean>(tokenExists);
-    //TODO add check token
     return {
         authed,
         login: async (form: UserI) => {
             const res = await fetchAPIForm("auth/login", "POST", form);
             if (res.status === 200) {
                 localStorage.setItem("token", res.body.token);
-                localStorage.setItem("userId", res.body.userId);
                 res.body.isAdmin && localStorage.setItem("isAdmin", res.body.isAdmin);
                 setAuthed(true);
             } else {

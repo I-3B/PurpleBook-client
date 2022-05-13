@@ -31,7 +31,7 @@ function CommentCard({ comment, postId, commentDeleted }: Props) {
     };
     return (
         <article key={comment._id} id={comment._id} className="comment">
-            <SettingsDropdown>
+            <SettingsDropdown userId={comment.author._id}>
                 <li>
                     <a href={`${route}/edit`}>Edit</a>
                 </li>
