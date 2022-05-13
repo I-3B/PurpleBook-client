@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useListLoading from "../hooks/useListLoading";
 import PostI from "../interfaces/Post";
-import { fetchAPI } from "../utils/fetchAPI";
 import Author from "./Author";
 import Loading from "./Loading";
 import PostCard from "./PostCard";
@@ -9,18 +9,12 @@ import PostedAt from "./PostedAt";
 import "./style/Feed.scss";
 function Feed() {
     const [posts, setPosts] = useState<Array<PostI>>([]);
-    const [skip, setSkip] = useState(0);
-    const [isThereMorePosts, setIsThereMorePosts] = useState(true);
-    const limit = 10;
-    const getFeed = async (skip: number) => {
-        const res = await fetchAPI(`posts/feed/?skip=${skip}&limit=${limit}`);
-        setPosts((posts) => {
-            return [...posts, ...res.body.posts];
-        });
-        if (res.body.posts.length < limit) {
-            setIsThereMorePosts(false);
-        }
-    };
+    const {
+        list,
+        isThereMoreFromList: isThereMorePosts,
+        loadMoreFromList,
+    } = useListLoading(10, "/posts/feed", "posts");
+
     const postDeletedCallback = (postId: string) => {
         setPosts((posts) => {
             return posts.filter((post) => {
@@ -28,14 +22,10 @@ function Feed() {
             });
         });
     };
-    const loadMorePosts = () => {
-        setSkip((skip) => {
-            return skip + limit;
-        });
-    };
     useEffect(() => {
-        getFeed(skip);
-    }, [skip]);
+        setPosts(list);
+    }, [list]);
+
     if (!posts.length) return <Loading />;
     return (
         <section className="feed">
@@ -55,7 +45,7 @@ function Feed() {
                     </PostCard>
                 );
             })}
-            {isThereMorePosts && <button onClick={loadMorePosts}>Show more posts</button>}
+            {isThereMorePosts && <button onClick={loadMoreFromList}>Show more posts</button>}
         </section>
     );
 }
