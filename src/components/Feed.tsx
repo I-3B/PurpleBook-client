@@ -13,6 +13,13 @@ function Feed() {
         const res = await fetchAPI("posts/feed");
         setPosts(res.body.posts);
     };
+    const postDeletedCallback = (postId: string) => {
+        setPosts((posts) => {
+            return posts.filter((post) => {
+                return post._id !== postId;
+            });
+        });
+    };
     useEffect(() => {
         getFeed();
     }, []);
@@ -21,7 +28,12 @@ function Feed() {
         <section className="feed">
             {posts.map((post) => {
                 return (
-                    <PostCard linkToPost={true} key={post._id} post={post}>
+                    <PostCard
+                        linkToPost={true}
+                        key={post._id}
+                        post={post}
+                        postDeleted={postDeletedCallback}
+                    >
                         <header>
                             <Author author={post.author} />
                             <PostedAt createdAt={post.createdAt} />

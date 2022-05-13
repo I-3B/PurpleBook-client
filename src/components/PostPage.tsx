@@ -25,6 +25,7 @@ function PostPage() {
     const route = `/posts/${postId}`;
     const goToComment = location.includes("comments");
     const editComment = location.includes("edit");
+
     const getPost = async () => {
         const res = await fetchAPI(`posts/${postId}`);
         if (res.status === 404) {
@@ -101,6 +102,9 @@ function PostPage() {
             navigate(`${route}/comments/${commentId}`);
         }
     };
+    const postDeletedCallback = () => {
+        navigate("/");
+    };
     useEffect(() => {
         getPost();
     }, []);
@@ -135,7 +139,12 @@ function PostPage() {
     if (!post) return <Loading />;
     return (
         <div className="post-comments-container">
-            <PostCard linkToPost={false} key={post._id} post={post}>
+            <PostCard
+                linkToPost={false}
+                key={post._id}
+                post={post}
+                postDeleted={postDeletedCallback}
+            >
                 <header>
                     <Author author={post.author} />
                     <PostedAt createdAt={post.createdAt} />

@@ -1,9 +1,11 @@
 import he from "he";
 import parse from "html-react-parser";
 import { useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { Link } from "react-router-dom";
 import { HOST } from "..";
 import PostI from "../interfaces/Post";
+import { fetchAPI } from "../utils/fetchAPI";
 import ImageBfr from "./ImageBfr";
 import LikeButton from "./LikeButton";
 import LinkButton from "./LinkButton";
@@ -14,15 +16,20 @@ interface Props {
     post: PostI;
     children: React.ReactNode;
     linkToPost: boolean;
+    postDeleted: (postId: string) => void;
 }
-function PostCard({ post, children, linkToPost = true }: Props) {
+function PostCard({ post, children, postDeleted, linkToPost = true }: Props) {
     const [likesCount, setLikesCount] = useState(post.likesCount);
     const route = `/posts/${post._id}`;
     const updatedLikesCountCallback = (count: number) => {
         setLikesCount((likesCount) => likesCount + count);
     };
-    const deletePost = () => {
-        //TODO delete post
+    const deletePost = async () => {
+        const res = await fetchAPI(route, "DELETE");
+        if (res.status === 200) {
+            postDeleted(post._id);
+            NotificationManager.success("", "Post deleted", 1000);
+        }
     };
     return (
         <article key={post._id} id={post._id} className="post-card">
@@ -75,9 +82,9 @@ function PostCard({ post, children, linkToPost = true }: Props) {
 }
 const WithLink = (props: { link?: string; children: any }) =>
     props.link ? (
-        <a className="link-wrapper" href={props.link}>
+        <Link className="link-wrapper" to={props.link}>
             {props.children}
-        </a>
+        </Link>
     ) : (
         props.children
     );
