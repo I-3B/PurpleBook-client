@@ -7,7 +7,7 @@ import PostI from "../interfaces/Post";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPI, fetchAPIForm } from "../utils/fetchAPI";
 import Author from "./Author";
-import Comment from "./Comment";
+import CommentCard from "./CommentCard";
 import Editor from "./Editor";
 import Loading from "./Loading";
 import Message from "./Message";
@@ -194,7 +194,7 @@ function PostPage() {
                     if (!comments) return <Loading />;
                     return comments.map((comment) => {
                         return (
-                            <Comment
+                            <CommentCard
                                 comment={comment}
                                 key={comment._id}
                                 postId={post._id}

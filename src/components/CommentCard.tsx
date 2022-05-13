@@ -16,7 +16,7 @@ interface Props {
     postId: string;
     commentDeleted: (commentId: string) => void;
 }
-function Comment({ comment, postId, commentDeleted }: Props) {
+function CommentCard({ comment, postId, commentDeleted }: Props) {
     const [likesCount, setLikesCount] = useState(comment.likesCount);
     const route = `/posts/${postId}/comments/${comment._id}`;
     const updatedLikesCountCallback = (count: number) => {
@@ -56,4 +56,4 @@ function Comment({ comment, postId, commentDeleted }: Props) {
         </article>
     );
 }
-export default Comment;
+export default CommentCard;
