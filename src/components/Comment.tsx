@@ -1,8 +1,10 @@
 import he from "he";
 import parse from "html-react-parser";
 import { useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { HOST } from "..";
 import CommentI from "../interfaces/Comment";
+import { fetchAPI } from "../utils/fetchAPI";
 import Author from "./Author";
 import LikeButton from "./LikeButton";
 import LinkButton from "./LinkButton";
@@ -12,15 +14,20 @@ import "./style/Comment.scss";
 interface Props {
     comment: CommentI;
     postId: string;
+    commentDeleted: (commentId: string) => void;
 }
-function Comment({ comment, postId }: Props) {
+function Comment({ comment, postId, commentDeleted }: Props) {
     const [likesCount, setLikesCount] = useState(comment.likesCount);
     const route = `/posts/${postId}/comments/${comment._id}`;
     const updatedLikesCountCallback = (count: number) => {
         setLikesCount((likesCount) => likesCount + count);
     };
-    const deleteComment = () => {
-        //TODO delete comment
+    const deleteComment = async () => {
+        const res = await fetchAPI(route, "DELETE");
+        if (res.status === 200) {
+            commentDeleted(comment._id);
+            NotificationManager.success("", "Comment deleted", 1000);
+        }
     };
     return (
         <article key={comment._id} id={comment._id} className="comment">
@@ -44,7 +51,7 @@ function Comment({ comment, postId }: Props) {
                     updateLikesCountBy={updatedLikesCountCallback}
                 />
                 <span>{likesCount}</span>
-                <LinkButton link={`${HOST}/${route}`} />
+                <LinkButton link={`${HOST}${route}`} />
             </div>
         </article>
     );

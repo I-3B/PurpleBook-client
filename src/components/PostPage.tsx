@@ -105,6 +105,15 @@ function PostPage() {
     const postDeletedCallback = () => {
         navigate("/");
     };
+    const commentDeleteCallback = (deletedCommentId: string) => {
+        if (commentId) getComments();
+        else
+            setComments((comments) => {
+                return comments?.filter((comment) => {
+                    return comment._id !== deletedCommentId;
+                });
+            });
+    };
     useEffect(() => {
         getPost();
     }, []);
@@ -176,7 +185,14 @@ function PostPage() {
                 {(() => {
                     if (!comments) return <Loading />;
                     return comments.map((comment) => {
-                        return <Comment comment={comment} key={comment._id} postId={post._id} />;
+                        return (
+                            <Comment
+                                comment={comment}
+                                key={comment._id}
+                                postId={post._id}
+                                commentDeleted={commentDeleteCallback}
+                            />
+                        );
                     });
                 })()}
             </section>
