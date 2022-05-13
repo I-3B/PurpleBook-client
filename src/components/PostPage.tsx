@@ -1,4 +1,5 @@
 import he from "he";
+import { createBrowserHistory } from "history";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CommentI from "../interfaces/Comment";
@@ -22,6 +23,7 @@ function PostPage() {
     const { postId, commentId } = useParams();
     const navigate = useNavigate();
     const location = useLocation().pathname;
+    const history = createBrowserHistory();
     const route = `/posts/${postId}`;
     const goToComment = location.includes("comments");
     const editComment = location.includes("edit");
@@ -102,6 +104,9 @@ function PostPage() {
             navigate(`${route}/comments/${commentId}`);
         }
     };
+    const cancelCommentEditing = () => {
+        history.back();
+    };
     const postDeletedCallback = () => {
         navigate("/");
     };
@@ -168,7 +173,10 @@ function PostPage() {
                     >
                         <header>{editComment ? "Edit comment" : "Add comment"}</header>
                         <Editor ref={editorTextRef} />
-                        <input type="submit" value={editComment ? "Edit" : "Add"} />
+                        <div className="buttons">
+                            <input type="submit" value={editComment ? "Edit" : "Add"} />
+                            {editComment && <button onClick={cancelCommentEditing}>Cancel</button>}
+                        </div>
                         {commentFormError && (
                             <ul>
                                 {commentFormError.map((error, index) => {
