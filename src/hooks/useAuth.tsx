@@ -16,6 +16,7 @@ function useAuth() {
         login: async (form: UserI) => {
             const res = await fetchAPIForm("auth/login", "POST", form);
             if (res.status === 200) {
+                localStorage.setItem("userId", res.body.userId);
                 localStorage.setItem("token", res.body.token);
                 res.body.isAdmin && localStorage.setItem("isAdmin", res.body.isAdmin);
                 setAuthed(true);
