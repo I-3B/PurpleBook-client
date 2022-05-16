@@ -1,0 +1,12 @@
+@use "var";
+.button {
+  text-align: center;
+  text-decoration: none;
+  border-radius: 25px;
+  margin: auto;
+  padding: 0.5rem;
+  background-color: var.$primary;
+  border: 0;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

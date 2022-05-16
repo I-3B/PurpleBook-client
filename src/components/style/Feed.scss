@@ -1,4 +1,5 @@
 @use "var";
+@use "component";
 .feed {
   padding: 1rem;
   display: flex;
@@ -7,15 +8,7 @@
   max-width: 100vw;
   > button,
   > a {
-    text-align: center;
-    text-decoration: none;
-    border-radius: 25px;
+    @extend .button;
     width: 20rem;
-    margin: auto;
-    padding: 0.5rem;
-    background-color: var.$primary;
-    border: 0;
-    font-size: 1.2rem;
-    cursor: pointer;
   }
 }

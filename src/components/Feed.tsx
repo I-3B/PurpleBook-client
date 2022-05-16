@@ -13,7 +13,7 @@ function Feed() {
         list,
         isThereMoreFromList: isThereMorePosts,
         loadMoreFromList,
-    } = useListLoading(10, "/posts/feed", "posts");
+    } = useListLoading<PostI>(10, "/posts/feed", "posts");
 
     const postDeletedCallback = (postId: string) => {
         setPosts((posts) => {
