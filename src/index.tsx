@@ -12,7 +12,7 @@ import Login from "./components/Login";
 import Logout from "./components/Logout";
 import NewPost from "./components/NewPost";
 import PostPage from "./components/PostPage";
-import Profile from "./components/Profile";
+import ProfilePage from "./components/ProfilePage";
 import RequireAuth from "./components/RequireAuth";
 import Signup from "./components/Signup";
 import { AuthProvider } from "./hooks/useAuth";
@@ -40,7 +40,16 @@ ReactDOM.render(
                             path="/posts/:postId/comments/:commentId/edit"
                             element={<PostPage />}
                         />
-                        <Route path="/users/:userId" element={<Profile />} />
+                        <Route path="/users/:userId/" element={<ProfilePage show="posts" />} />
+
+                        <Route
+                            path="/users/:userId/comments"
+                            element={<ProfilePage show="comments" />}
+                        />
+                        <Route
+                            path="/users/:userId/friends"
+                            element={<ProfilePage show="friends" />}
+                        />
                         <Route path="/logout" element={<Logout />} />
                         <Route path="/*" element={<Loading />} />
                     </Route>

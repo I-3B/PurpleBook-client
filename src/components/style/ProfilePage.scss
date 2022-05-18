@@ -1,0 +1,78 @@
+@use "var";
+@use "component";
+@use "card";
+.profile-page {
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+  gap: 5px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var.$background-1;
+  .user {
+    padding: 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    > img {
+      width: 100%;
+      border-radius: 50%;
+      border: 3px solid var.$primary;
+    }
+    > h1 {
+      font-size: 3rem;
+    }
+    .toggle-friend {
+      @extend .button-radius;
+      width: 10rem;
+    }
+  }
+  .activity {
+    background-color: var.$background;
+    width: 100%;
+    .nav-buttons {
+      display: flex;
+      flex-direction: row;
+      > * {
+        flex: 1;
+        @extend .button;
+        background-color: var.$background-2;
+        transition: 0.3s;
+        &:hover {
+          background-color: lighten($color: var.$background-2, $amount: 10%);
+        }
+        &.active {
+          color: var.$primary;
+        }
+      }
+    }
+    > * {
+      min-width: 100%;
+    }
+    .posts {
+      display: flex;
+      flex-direction: column;
+      margin: 0.5rem 0;
+      gap: 0.5rem;
+    }
+    .friends {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background-color: var.$background-1;
+      .friend-card {
+        @extend %card;
+        background-color: var.$background-2;
+        width: 100%;
+        display: flex;
+        img {
+          width: 5rem;
+        }
+      }
+    }
+    .load-more {
+      @extend .button-radius;
+      margin: auto;
+    }
+  }
+}

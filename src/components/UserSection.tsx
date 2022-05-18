@@ -4,10 +4,9 @@ import { BufferData } from "../interfaces/User";
 import { fetchAPI } from "../utils/fetchAPI";
 import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
-
-function Profile() {
+function UserSection() {
     const { userId } = useParams();
-    const [userData, setUserData] = useState<User>();
+    const [userData, setUserData] = useState<UserI>();
     const getUserData = async () => {
         const res = await fetchAPI(`users/${userId}`);
         setUserData(res.body.user);
@@ -17,15 +16,18 @@ function Profile() {
     }, []);
     if (!userData) return <Loading />;
     return (
-        <section>
+        <section className="user">
             <ImageBfr image={userData.imageFull} type="profile" />
-            <p>{userData.firstName + " " + userData.lastName}</p>
+            <h1>{userData.firstName + " " + userData.lastName}</h1>
+            <time>User since: {new Date(userData.createdAt).toLocaleDateString()}</time>
+            <button className="toggle-friend">Add friend</button>
         </section>
     );
 }
-interface User {
+interface UserI {
     firstName: string;
     lastName: string;
     imageFull: BufferData;
+    createdAt: Date;
 }
-export default Profile;
+export default UserSection;
