@@ -1,9 +1,12 @@
-export default interface UserI {
+export interface UserMini {
+    _id: string;
     firstName: String;
     lastName: String;
+    imageMini: BufferData;
+}
+export default interface UserI extends UserMini {
     email: String;
     password: String;
-    imageMini: BufferData;
     imageFul: BufferData;
     friends: Array<String>;
     friendRequests: Array<{ user: String; viewed: Boolean }>;

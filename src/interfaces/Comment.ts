@@ -1,11 +1,8 @@
+import { UserMini } from "./User";
+
 export default interface CommentI {
     _id: string;
-    author: {
-        _id: string;
-        firstName: string;
-        lastName: string;
-        imageMini: { data: Buffer; contentType: string };
-    };
+    author: UserMini;
     content: string;
     likesCount: number;
     likedByUser: boolean;

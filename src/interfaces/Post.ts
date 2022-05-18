@@ -1,13 +1,8 @@
-import { BufferData } from "./User";
+import { BufferData, UserMini } from "./User";
 
 export default interface PostI {
     _id: string;
-    author: {
-        _id: string;
-        firstName: string;
-        lastName: string;
-        imageMini: BufferData;
-    };
+    author: UserMini;
     content: string;
     image: BufferData;
     likesCount: number;
