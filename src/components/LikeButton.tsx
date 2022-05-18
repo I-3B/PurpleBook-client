@@ -5,7 +5,7 @@ import { HeartSvg } from "./SVG";
 interface Props {
     route: string;
     likedByUser: boolean;
-    updateLikesCountBy: Function;
+    updateLikesCountBy: (updateBy: number) => void;
 }
 function LikeButton({ route, likedByUser, updateLikesCountBy }: Props) {
     const [liked, setLiked] = useState(likedByUser);
