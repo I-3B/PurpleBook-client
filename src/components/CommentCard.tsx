@@ -5,7 +5,7 @@ import { NotificationManager } from "react-notifications";
 import { HOST } from "..";
 import CommentI from "../interfaces/Comment";
 import { fetchAPI } from "../utils/fetchAPI";
-import Author from "./Author";
+import User from "./User";
 import LikeButton from "./LikeButton";
 import LinkButton from "./LinkButton";
 import PostedAt from "./PostedAt";
@@ -40,7 +40,7 @@ function CommentCard({ comment, postId, commentDeleted }: Props) {
                 </li>
             </SettingsDropdown>
             <header>
-                <Author author={comment.author} />
+                <User user={comment.author} />
                 <PostedAt createdAt={comment.createdAt} />
             </header>
             <div>{parse(he.decode(comment.content))}</div>

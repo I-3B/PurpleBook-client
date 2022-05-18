@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useListLoading from "../hooks/useListLoading";
 import PostI from "../interfaces/Post";
-import Author from "./Author";
 import Loading from "./Loading";
 import PostCard from "./PostCard";
 import PostedAt from "./PostedAt";
 import "./style/Feed.scss";
+import User from "./User";
 function Feed() {
     const [posts, setPosts] = useState<Array<PostI>>([]);
     const {
@@ -39,7 +39,7 @@ function Feed() {
                         postDeleted={postDeletedCallback}
                     >
                         <header>
-                            <Author author={post.author} />
+                            <User user={post.author} />
                             <PostedAt createdAt={post.createdAt} />
                         </header>
                     </PostCard>

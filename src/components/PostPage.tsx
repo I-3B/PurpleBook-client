@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PostI from "../interfaces/Post";
 import { fetchAPI } from "../utils/fetchAPI";
-import Author from "./Author";
+import User from "./User";
 import CommentSection from "./CommentSection";
 import Loading from "./Loading";
 import Message from "./Message";
@@ -50,7 +50,7 @@ function PostPage() {
                 postDeleted={postDeletedCallback}
             >
                 <header>
-                    <Author author={post.author} />
+                    <User user={post.author} />
                     <PostedAt createdAt={post.createdAt} />
                 </header>
             </PostCard>
