@@ -6,7 +6,7 @@ import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
 function UserSection() {
     const { userId } = useParams();
-    const [userData, setUserData] = useState<UserI>();
+    const [userData, setUserData] = useState<UserProfileI>();
     const getUserData = async () => {
         const res = await fetchAPI(`users/${userId}`);
         setUserData(res.body.user);
@@ -24,7 +24,7 @@ function UserSection() {
         </section>
     );
 }
-interface UserI {
+interface UserProfileI {
     firstName: string;
     lastName: string;
     imageFull: BufferData;
