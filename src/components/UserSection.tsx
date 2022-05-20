@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BufferData } from "../interfaces/User";
 import { fetchAPI } from "../utils/fetchAPI";
+import FriendButtons from "./FriendButtons";
 import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
 function UserSection() {
@@ -20,14 +21,16 @@ function UserSection() {
             <ImageBfr image={userData.imageFull} type="profile" />
             <h1>{userData.firstName + " " + userData.lastName}</h1>
             <time>User since: {new Date(userData.createdAt).toLocaleDateString()}</time>
-            <button className="toggle-friend">Add friend</button>
+            <FriendButtons initialFriendState={userData.friendState} friendId={userData._id} />
         </section>
     );
 }
 interface UserProfileI {
+    _id: string;
     firstName: string;
     lastName: string;
     imageFull: BufferData;
     createdAt: Date;
+    friendState: string;
 }
 export default UserSection;
