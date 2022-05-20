@@ -4,11 +4,13 @@
   text-decoration: none;
   margin: auto;
   padding: 0.5rem;
-  background-color: var.$primary;
   border: 0;
   font-size: 1.2rem;
   cursor: pointer;
   transition: 0.3s;
+}
+.button-colored {
+  background-color: var.$primary;
   &:hover {
     background-color: darken($color: var.$primary, $amount: 10%);
   }

@@ -22,10 +22,6 @@
     > h1 {
       font-size: 3rem;
     }
-    .toggle-friend {
-      @extend .button-radius;
-      width: 10rem;
-    }
   }
   .activity {
     background-color: var.$background;
@@ -36,6 +32,7 @@
       > * {
         flex: 1;
         @extend .button;
+        @extend .button-colored;
         background-color: var.$background-2;
         transition: 0.3s;
         &:hover {
@@ -72,6 +69,7 @@
     }
     .load-more {
       @extend .button-radius;
+      @extend .button-colored;
       margin: auto;
     }
   }

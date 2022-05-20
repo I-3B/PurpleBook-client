@@ -9,6 +9,7 @@
   > button,
   > a {
     @extend .button-radius;
+    @extend .button-colored;
     width: 20rem;
   }
 }
