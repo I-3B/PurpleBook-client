@@ -4,6 +4,9 @@ export interface UserMini {
     lastName: String;
     imageMini: BufferData;
 }
+export interface FriendI extends UserMini {
+    friendState: string;
+}
 export default interface UserI extends UserMini {
     email: String;
     password: String;
