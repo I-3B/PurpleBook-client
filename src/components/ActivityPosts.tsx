@@ -10,6 +10,7 @@ function ActivityPosts() {
     const [posts, setPosts] = useState<Array<PostI>>([]);
     const {
         list,
+        isLoading,
         isThereMoreFromList: isThereMorePosts,
         loadMoreFromList,
     } = useListLoading<PostI>(10, route, "posts");
@@ -38,12 +39,12 @@ function ActivityPosts() {
                     />
                 );
             })}
-            {isThereMorePosts && (
+            {isThereMorePosts && !isLoading && (
                 <button className="load-more" onClick={loadMoreFromList}>
                     Show more posts
                 </button>
             )}
-            {!posts.length && isThereMorePosts && <Loading />}
+            {isLoading && <Loading />}
         </section>
     );
 }

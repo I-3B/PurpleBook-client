@@ -11,6 +11,7 @@ function Feed() {
     const [posts, setPosts] = useState<Array<PostI>>([]);
     const {
         list,
+        isLoading,
         isThereMoreFromList: isThereMorePosts,
         loadMoreFromList,
     } = useListLoading<PostI>(10, "/posts/feed", "posts");
@@ -26,7 +27,6 @@ function Feed() {
         setPosts(list);
     }, [list]);
 
-    if (!posts.length) return <Loading />;
     return (
         <section className="feed">
             <Link to="/new-post">Add post</Link>
@@ -45,7 +45,10 @@ function Feed() {
                     </PostCard>
                 );
             })}
-            {isThereMorePosts && <button onClick={loadMoreFromList}>Show more posts</button>}
+            {isLoading && <Loading />}
+            {isThereMorePosts && !isLoading && (
+                <button onClick={loadMoreFromList}>Show more posts</button>
+            )}
         </section>
     );
 }

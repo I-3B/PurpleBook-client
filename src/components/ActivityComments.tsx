@@ -32,6 +32,7 @@ function ActivityComments() {
         list,
         isThereMoreFromList: isThereMoreComments,
         loadMoreFromList,
+        isLoading,
     } = useListLoading<CommentProfileI>(10, route, "comments");
 
     const commentDeletedCallback = (commentId: string) => {
@@ -45,7 +46,6 @@ function ActivityComments() {
         setComments(list);
     }, [list]);
 
-    if (!comments.length) return <Loading />;
     return (
         <section className="posts">
             {comments.map((comment) => {
@@ -57,11 +57,12 @@ function ActivityComments() {
                     />
                 );
             })}
-            {isThereMoreComments && (
+            {isThereMoreComments && !isLoading && (
                 <button className="load-more" onClick={loadMoreFromList}>
                     Show more posts
                 </button>
             )}
+            {isLoading && <Loading />}
         </section>
     );
 }

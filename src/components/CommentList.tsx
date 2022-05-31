@@ -16,9 +16,10 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
         setList: setCommentList,
         isThereMoreFromList: isThereMoreComments,
         loadMoreFromList: loadMoreComments,
+        isLoading,
         list,
     } = useListLoading<CommentI>(10, `${route}/comments`, "comments");
-    const [comments, setComments] = useState<Array<CommentI>>();
+    const [comments, setComments] = useState<Array<CommentI>>([]);
     const location = useLocation().pathname;
     const goToComment = location.includes("comments");
     const editComment = location.includes("edit");
@@ -83,7 +84,6 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
         }
     }, [comments, commentId, goToComment, editComment]);
 
-    if (!comments) return <Loading />;
     return (
         <>
             {comments.map((comment) => {
@@ -96,9 +96,10 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
                     />
                 );
             })}
-            {isThereMoreComments && !commentId && (
+            {isThereMoreComments && !commentId && !isLoading && (
                 <button onClick={loadMoreComments}>Show more Comments</button>
             )}
+            {isLoading && <Loading />}
         </>
     );
 }

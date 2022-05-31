@@ -6,11 +6,12 @@ import FriendCard from "./FriendCard";
 import Loading from "./Loading";
 
 function ActivityFriends() {
-    const [friends, setFriends] = useState<Array<FriendI>>();
+    const [friends, setFriends] = useState<Array<FriendI>>([]);
     const { userId } = useParams();
     const route = `users/${userId}/friends`;
     const {
         list,
+        isLoading,
         isThereMoreFromList: isThereMoreFriends,
         loadMoreFromList,
     } = useListLoading<FriendI>(10, route, "friends");
@@ -18,7 +19,6 @@ function ActivityFriends() {
     useEffect(() => {
         setFriends(list);
     }, [list]);
-    if (!friends) return <Loading />;
     return (
         <section className="friends">
             {friends.map((friend) => {
@@ -29,6 +29,8 @@ function ActivityFriends() {
                     Load more friends
                 </button>
             )}
+            {!isLoading && isThereMoreFriends && <Loading />}
+            {isLoading && <Loading />}
         </section>
     );
 }
