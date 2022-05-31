@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PostI from "../interfaces/Post";
 import { fetchAPI } from "../utils/fetchAPI";
-import User from "./User";
 import CommentSection from "./CommentSection";
 import Loading from "./Loading";
 import Message from "./Message";
 import PostCard from "./PostCard";
 import PostedAt from "./PostedAt";
 import "./style/PostPage.scss";
+import UserAddress from "./UserAddress";
 function PostPage() {
     const [post, setPost] = useState<PostI>();
     const [error, setError] = useState("");
@@ -50,7 +50,7 @@ function PostPage() {
                 postDeleted={postDeletedCallback}
             >
                 <header>
-                    <User user={post.author} />
+                    <UserAddress user={post.author} />
                     <PostedAt createdAt={post.createdAt} />
                 </header>
             </PostCard>

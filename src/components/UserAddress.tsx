@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { UserMini } from "../interfaces/User";
 import ImageBfr from "./ImageBfr";
-import "./style/Author.scss";
+import "./style/UserAddress.scss";
 interface Props {
     user: UserMini;
 }
-function User({ user }: Props) {
+function UserAddress({ user }: Props) {
     return (
-        <address className="author">
+        <address className="user-address">
             <Link rel="author" to={"/users/" + user._id}>
                 <ImageBfr image={user.imageMini} type="profile"></ImageBfr>
                 <span>{user.firstName + " " + user.lastName}</span>
@@ -16,4 +16,4 @@ function User({ user }: Props) {
     );
 }
 
-export default User;
+export default UserAddress;

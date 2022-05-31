@@ -6,7 +6,7 @@ import Loading from "./Loading";
 import PostCard from "./PostCard";
 import PostedAt from "./PostedAt";
 import "./style/Feed.scss";
-import User from "./User";
+import UserAddress from "./UserAddress";
 function Feed() {
     const [posts, setPosts] = useState<Array<PostI>>([]);
     const {
@@ -39,7 +39,7 @@ function Feed() {
                         postDeleted={postDeletedCallback}
                     >
                         <header>
-                            <User user={post.author} />
+                            <UserAddress user={post.author} />
                             <PostedAt createdAt={post.createdAt} />
                         </header>
                     </PostCard>
