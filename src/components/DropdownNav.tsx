@@ -6,20 +6,18 @@ interface Props {
     children: React.ReactNode;
 }
 function DropdownNav({ children, buttonContent }: Props) {
-    const linksRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+    const contentRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+    const toggleShow = () => {
+        contentRef.current.classList.toggle("show");
+    };
     return (
         <div className="dropdown-nav">
-                <button
-                    className="dropbtn"
-                    onClick={() => {
-                        linksRef.current.classList.toggle("show");
-                    }}
-                >
-                    {buttonContent}
-                </button>
-                <div className="dropdown-content" ref={linksRef}>
-                    {children}
-                </div>
+            <button className="dropbtn" onClick={toggleShow}>
+                {buttonContent}
+            </button>
+            <div className="dropdown-content" ref={contentRef} onClick={toggleShow}>
+                {children}
+            </div>
         </div>
     );
 }

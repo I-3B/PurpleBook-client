@@ -24,12 +24,11 @@ function ActivityFriends() {
             {friends.map((friend) => {
                 return <FriendCard friend={friend} key={friend._id} />;
             })}
-            {isThereMoreFriends && (
+            {isThereMoreFriends && !isLoading && (
                 <button className="load-more" onClick={loadMoreFromList}>
                     Load more friends
                 </button>
             )}
-            {!isLoading && isThereMoreFriends && <Loading />}
             {isLoading && <Loading />}
         </section>
     );
