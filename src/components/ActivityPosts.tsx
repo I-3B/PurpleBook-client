@@ -25,7 +25,6 @@ function ActivityPosts() {
         setPosts(list);
     }, [list]);
 
-    if (!posts.length) return <Loading />;
     return (
         <section className="posts">
             {posts.map((post) => {
@@ -44,6 +43,7 @@ function ActivityPosts() {
                     Show more posts
                 </button>
             )}
+            {!posts.length && isThereMorePosts && <Loading />}
         </section>
     );
 }
