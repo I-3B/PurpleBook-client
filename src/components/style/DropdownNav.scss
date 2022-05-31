@@ -1,0 +1,57 @@
+@use "var";
+$transition: 0.1s;
+.dropdown-nav {
+  position: relative;
+  .dropbtn {
+    cursor: pointer;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    span {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50px;
+    }
+    img {
+      border-radius: 50%;
+      height: 2rem;
+    }
+  }
+}
+.dropdown-content {
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0rem;
+  background-color: var.$primary;
+  min-width: max-content;
+  z-index: 3;
+  transition: all $transition ease-out;
+  transform: scaleY(0);
+  transform-origin: 100% 0;
+  > * {
+    flex: 1;
+    border: none;
+    background-color: var.$background-2;
+    padding: 12px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+    text-align: left;
+    text-decoration: underline 0.1em transparent;
+    transition: color $transition, text-decoration $transition;
+  }
+  *:hover {
+    filter: brightness(0.9);
+  }
+}
+.show {
+  transform: scaleY(1);
+}

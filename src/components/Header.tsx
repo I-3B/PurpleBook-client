@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { fetchAPI } from "../utils/fetchAPI";
+import DropdownNav from "./DropdownNav";
 import ImageBfr from "./ImageBfr";
 import "./style/Header.scss";
 
 function Header() {
-    const { authed } = useAuth();
+    const { authed, logout } = useAuth();
     const [userData, setUserData] = useState<profile>();
     const getUserData = async () => {
         const res = await fetchAPI("users/profile");
         setUserData(res.body.user);
-        localStorage.setItem("userId", res.body.user._id);
+    };
+    const logoutClicked = () => {
+        logout();
     };
     useEffect(() => {
         if (authed) getUserData();
@@ -42,13 +45,18 @@ function Header() {
                                 </Link>
                             </li>
                             <li className="profile">
-                                <Link to={"/users/" + userData?._id}>
-                                    <span>{userData?.firstName}</span>
-                                    <ImageBfr image={userData?.imageMini} type="profile" />
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={"/logout"}>Logout</Link>
+                                <DropdownNav
+                                    buttonContent={
+                                        <>
+                                            <span>{userData?.firstName}</span>
+                                            <ImageBfr image={userData?.imageMini} type="profile" />
+                                        </>
+                                    }
+                                >
+                                    <Link to={"/users/" + userData?._id}>Profile</Link>
+                                    <Link to={`/users/${userData?._id}/edit`}>Edit user</Link>
+                                    <button onClick={logoutClicked}>Logout</button>
+                                </DropdownNav>
                             </li>
                         </>
                     )}

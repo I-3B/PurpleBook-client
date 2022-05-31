@@ -20,30 +20,20 @@ $transition: 0.4s;
     padding: 0.2rem;
   }
 
-  a {
-    text-decoration: underline 0.1em transparent;
-    transition: color $transition, text-decoration $transition;
-  }
-  a:hover {
-    color: var.$secondary;
-    text-decoration-color: var.$primary;
+  li {
+    > a {
+      text-decoration: underline 0.1em transparent;
+      transition: color $transition, text-decoration $transition;
+    }
+    > a:hover {
+      color: var.$secondary;
+      text-decoration-color: var.$primary;
+    }
   }
   span {
     font-size: 0.8rem;
   }
-  .profile {
-    a {
-      display: flex;
-      gap: 4px;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50px;
-    }
-    img {
-      border-radius: 50%;
-      height: 2rem;
-    }
-  }
+
   .li-logo {
     margin-right: auto;
   }
