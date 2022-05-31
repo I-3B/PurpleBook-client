@@ -57,15 +57,7 @@
       flex-direction: column;
       gap: 0.5rem;
       background-color: var.$background-1;
-      .friend-card {
-        @extend %card;
-        background-color: var.$background-2;
-        width: 100%;
-        display: flex;
-        img {
-          width: 5rem;
-        }
-      }
+
     }
     .load-more {
       @extend .button-radius;
