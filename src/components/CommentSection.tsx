@@ -7,6 +7,7 @@ import { fetchAPIForm } from "../utils/fetchAPI";
 import CommentList from "./CommentList";
 import Editor from "./Editor";
 import "./style/CommentSection.scss";
+import "./style/Form.scss";
 function CommentSection() {
     const editorTextRef = useRef<{ getText: () => string; setText: (value: string) => void }>();
     const [commentFormError, setCommentFormError] = useState<Array<responseError>>();
@@ -77,7 +78,7 @@ function CommentSection() {
         <section className="comments">
             <header>Comments</header>
             <form
-                className="comment-form"
+                className="comment-form form"
                 onSubmit={editComment ? editCommentSubmitted : newCommentSubmitted}
             >
                 <header>{editComment ? "Edit comment" : "Add comment"}</header>

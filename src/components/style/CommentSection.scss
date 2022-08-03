@@ -16,9 +16,7 @@
     min-width: 15rem;
   }
   .comment-form {
-    @extend .form;
     margin: auto;
-    background-color: var.$background-1;
     padding: 1rem;
     box-sizing: border-box;
     min-width: 100%;

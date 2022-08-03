@@ -1,8 +1,6 @@
 @use "var";
-$form-background: #333;
 .form {
-  color: $form-background;
-  background-color: darken($color: $form-background, $amount: 4%);
+  background-color: darken($color: var.$background-2, $amount: 4%);
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -14,37 +12,43 @@ $form-background: #333;
   position: relative;
   header {
     color: var.$primary;
-    font-weight: bold;
-    font-size: 1.5rem;
+    font-weight: normal;
+    font-size: 2.5rem;
   }
-  .buttons {
-    margin-left: auto;
-    display: flex;
-    gap: 5px;
-    input[type="submit"],
-    button {
-      cursor: pointer;
-      width: fit-content;
-      margin: auto;
-      padding: 0.5rem;
-      border: 2px solid transparent;
-      border-radius: 4px;
-      background-color: var.$primary;
-      &:hover,
-      &:focus {
-        border-color: yellowgreen;
-      }
-      &:disabled {
-        filter: brightness(0.5);
-      }
+  input[type="text"] {
+    color: #111;
+  }
+  input[type="submit"],
+  button {
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+    padding: 0.5rem;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    background-color: var.$primary;
+    &:hover,
+    &:focus {
+      border-color: yellowgreen;
+    }
+    &:disabled {
+      filter: brightness(0.5);
     }
   }
-
+  img {
+    border-radius: 3px;
+    border: 3px solid var.$primary;
+  }
+  .delete {
+    background-color: rgb(152, 0, 0);
+    margin-right: 0;
+  }
   ul {
     list-style-type: "- ";
     padding-left: 1rem;
   }
-  .error {
+  .error,
+  .error * {
     margin: 0;
     color: tomato;
     font-size: 1rem;

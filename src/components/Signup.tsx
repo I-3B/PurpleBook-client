@@ -1,6 +1,7 @@
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { responseError } from "../interfaces/responseError";
 import { fetchAPIMultiPart } from "../utils/fetchAPI";
 import Loading from "./Loading";
 import "./style/Form.scss";
@@ -70,12 +71,7 @@ interface signupFormErrors {
     email: ReactElement<any, any>;
     password: ReactElement<any, any>;
 }
-interface responseError {
-    location: string;
-    msg: string;
-    param: string;
-    value: string;
-}
+
 const readErrorMessages = (
     errors: Array<responseError>,
     setErrors: Dispatch<SetStateAction<any>>
