@@ -3,7 +3,6 @@ import parse from "html-react-parser";
 import { useState } from "react";
 import { NotificationManager } from "react-notifications";
 import { Link } from "react-router-dom";
-import { HOST } from "..";
 import PostI from "../interfaces/Post";
 import { fetchAPI } from "../utils/fetchAPI";
 import ImageBfr from "./ImageBfr";
@@ -77,7 +76,7 @@ function PostCard({ author, post, children, postDeleted, linkToPost = true }: Pr
                     </Link>
                 </div>
                 <div className="share-button">
-                    <LinkButton link={`${HOST}/${route}`} />
+                    <LinkButton link={route} />
                 </div>
             </footer>
         </article>

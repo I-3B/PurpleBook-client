@@ -2,7 +2,6 @@ import he from "he";
 import parse from "html-react-parser";
 import { useState } from "react";
 import { NotificationManager } from "react-notifications";
-import { HOST } from "..";
 import CommentI from "../interfaces/Comment";
 import { fetchAPI } from "../utils/fetchAPI";
 import LikeButton from "./LikeButton";
@@ -51,7 +50,7 @@ function CommentCard({ comment, postId, commentDeleted }: Props) {
                     updateLikesCountBy={updatedLikesCountCallback}
                 />
                 <span>{likesCount}</span>
-                <LinkButton link={`${HOST}${route}`} />
+                <LinkButton link={route} />
             </div>
         </article>
     );

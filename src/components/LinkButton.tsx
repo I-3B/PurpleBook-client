@@ -5,7 +5,7 @@ interface Props {
 }
 function LinkButton({ link }: Props) {
     const linkClicked = () => {
-        navigator.clipboard.writeText(link).then(() => {
+        navigator.clipboard.writeText(document.location.origin + link).then(() => {
             NotificationManager.success("copied to clipboard", "", 1000);
         });
     };

@@ -3,7 +3,6 @@ import parse from "html-react-parser";
 import { useEffect, useState } from "react";
 import { NotificationManager } from "react-notifications";
 import { Link, useParams } from "react-router-dom";
-import { HOST } from "..";
 import useListLoading from "../hooks/useListLoading";
 import { fetchAPI } from "../utils/fetchAPI";
 import LikeButton from "./LikeButton";
@@ -73,7 +72,7 @@ interface cpProps {
 function CommentProfile({ comment, commentDeleted }: cpProps) {
     const { userId } = useParams();
     const postRoute = `/posts/${comment.post._id}`;
-    const commentRoute = `${postRoute}/comments/${comment._id}`;
+    const commentRoute = `${postRoute}/comments/${comment._id}`;    
     const [likesCount, setLikesCount] = useState(comment.likesCount);
     const deleteComment = async () => {
         const res = await fetchAPI(commentRoute, "DELETE");
@@ -105,16 +104,16 @@ function CommentProfile({ comment, commentDeleted }: cpProps) {
                     <PostedAt createdAt={comment.createdAt} />
                 </header>
                 <div>{parse(he.decode(comment.content))}</div>
-                <div className="buttons">
-                    <LikeButton
-                        route={`${commentRoute}/likes`}
-                        likedByUser={comment.likedByUser}
-                        updateLikesCountBy={updatedLikesCountCallback}
-                    />
-                    <span>{likesCount}</span>
-                    <LinkButton link={`${HOST}${commentRoute}`} />
-                </div>
             </Link>
+            <div className="buttons">
+                <LikeButton
+                    route={`${commentRoute}/likes`}
+                    likedByUser={comment.likedByUser}
+                    updateLikesCountBy={updatedLikesCountCallback}
+                />
+                <span>{likesCount}</span>
+                <LinkButton link={commentRoute} />
+            </div>
         </article>
     );
 }
