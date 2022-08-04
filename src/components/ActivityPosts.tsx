@@ -4,6 +4,7 @@ import useListLoading from "../hooks/useListLoading";
 import PostI from "../interfaces/Post";
 import Loading from "./Loading";
 import PostCard from "./PostCard";
+import PostedAt from "./PostedAt";
 function ActivityPosts() {
     const { userId } = useParams();
     const route = `users/${userId}/posts`;
@@ -36,7 +37,11 @@ function ActivityPosts() {
                         post={post}
                         postDeleted={postDeletedCallback}
                         author={userId}
-                    />
+                    >
+                        <header>
+                            <PostedAt createdAt={post.createdAt} />
+                        </header>
+                    </PostCard>
                 );
             })}
             {isThereMorePosts && !isLoading && (
