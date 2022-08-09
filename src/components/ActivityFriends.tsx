@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useListLoading from "../hooks/useListLoading";
 import { FriendI } from "../interfaces/User";
-import FriendCard from "./FriendCard";
+import {FriendCard} from "./FriendComponents";
 import Loading from "./Loading";
 
 function ActivityFriends() {

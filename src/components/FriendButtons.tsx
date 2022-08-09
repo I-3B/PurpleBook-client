@@ -50,14 +50,13 @@ function FriendButtons({ friendId, initialFriendState }: Props) {
     const removeReceivedFR = async () => {
         setFriendState(FS.NOT_FRIEND);
         setEnableRemoveReceivedFR(false);
-        const res = await fetchAPI(`users/${userId}/friend_requests/${friendId}`, "DELETE");
-        console.log(res);
+        fetchAPI(`users/${userId}/friend_requests/${friendId}`, "DELETE");
     };
     useEffect(() => {
         switch (friendState) {
             case FS.NOT_FRIEND:
                 setDefaultText("Add friend");
-                setHoverText("Add");
+                setHoverText("Add friend");
                 break;
             case FS.FRIEND:
                 setDefaultText("friends");

@@ -5,14 +5,16 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: 1rem;
+  > * {
+    width: 50%;
+  }
   .friend-button {
     @extend .button-radius;
     @extend .button-colored;
-    width: 10rem;
   }
   .remove-fr {
     @extend .button-radius;
-    width: 10rem;
     background-color: transparent;
     color: var.$text;
     border: 1px solid var.$text;
