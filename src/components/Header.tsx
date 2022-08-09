@@ -1,21 +1,51 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { fetchAPI } from "../utils/fetchAPI";
 import DropdownNav from "./DropdownNav";
 import ImageBfr from "./ImageBfr";
 import "./style/Header.scss";
-
-function Header() {
+export interface HeaderRefI {
+    updateUserData: () => void;
+    emptyNotifications: () => void;
+    emptyFriendRequests: () => void;
+}
+const Header = forwardRef((_undefined, _ref) => {
     const { authed, logout } = useAuth();
     const [userData, setUserData] = useState<profile>();
     const getUserData = async () => {
         const res = await fetchAPI("users/profile");
         setUserData(res.body.user);
+        console.log(res.body.user);
+
+        //TODO remove for production
+        localStorage.setItem("userId", res.body.user._id);
     };
     const logoutClicked = () => {
         logout();
     };
+    useImperativeHandle(_ref, () => ({
+        updateUserData: () => {
+            getUserData();
+        },
+        emptyNotifications: () => {
+            setUserData((userData) => {
+                if (userData) {
+                    userData.notificationsCount = 0;
+                    return { ...userData };
+                }
+            });
+        },
+        emptyFriendRequests: () => {
+            setUserData((userData) => {
+                if (userData) {
+                    userData.friendRequestsCount = 0;
+                    return { ...userData };
+                }
+            });
+        },
+    }));
     useEffect(() => {
         if (authed) getUserData();
     }, [authed]);
@@ -31,17 +61,19 @@ function Header() {
                             <li>
                                 <Link to="/notifications" className="number-in-icon">
                                     <img src="/assets/bell.png" alt="bell" />
-                                    {userData?.notificationsCount !== 0 && (
-                                        <span>{userData?.notificationsCount}</span>
-                                    )}
+                                    {userData?.notificationsCount !== undefined &&
+                                        userData?.notificationsCount !== 0 && (
+                                            <span>{userData?.notificationsCount}</span>
+                                        )}
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/friends" className="number-in-icon">
+                                <Link to="/connect" className="number-in-icon">
                                     <img src="/assets/friends.png" alt="friends" />
-                                    {userData?.friendRequestsCount !== 0 && (
-                                        <span>{userData?.friendRequestsCount}</span>
-                                    )}
+                                    {userData?.friendRequestsCount !== undefined     &&
+                                        userData.friendRequestsCount !== 0 && (
+                                            <span>{userData?.friendRequestsCount}</span>
+                                        )}
                                 </Link>
                             </li>
                             <li className="profile">
@@ -64,7 +96,7 @@ function Header() {
             </nav>
         </header>
     );
-}
+});
 interface profile {
     _id: string;
     firstName: string;

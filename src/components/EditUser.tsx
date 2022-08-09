@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import { responseError } from "../interfaces/responseError";
 import { BufferData } from "../interfaces/User";
 import { fetchAPI, fetchAPIMultiPart } from "../utils/fetchAPI";
+import { HeaderRefI } from "./Header";
 import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
 import "./style/Form.scss";
@@ -13,7 +14,10 @@ interface editData {
     lastName?: string;
     imageFull?: BufferData;
 }
-function EditUser() {
+interface EditUserProps {
+    HeaderRef: React.RefObject<HeaderRefI>;
+}
+function EditUser({ HeaderRef }: EditUserProps) {
     const { logout } = useAuth();
     const [formData, setFormData] = useState<editData>({ firstName: "", lastName: "" });
     const [formLoading, setFormLoading] = useState<ReactElement<any, any>>();
@@ -37,9 +41,10 @@ function EditUser() {
         } else if (res.status !== 200) {
             NotificationManager.error(res.body, res.status);
         } else {
+            console.log(HeaderRef.current);
+            HeaderRef.current?.updateUserData();
             return navigate("/" + route);
         }
-        console.log("a");
         setFormLoading(<></>);
     };
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
