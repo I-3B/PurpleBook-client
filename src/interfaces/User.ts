@@ -4,8 +4,15 @@ export interface UserMini {
     lastName: String;
     imageMini: BufferData;
 }
+export interface friendRequestI {
+    user: UserMini;
+    viewed: boolean;
+}
 export interface FriendI extends UserMini {
     friendState: string;
+}
+export interface RecommendI extends FriendI {
+    mutualFriends: number;
 }
 export default interface UserI extends UserMini {
     email: String;
