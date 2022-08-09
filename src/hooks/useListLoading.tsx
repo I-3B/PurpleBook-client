@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { fetchAPI } from "../utils/fetchAPI";
 function useListLoading<Type>(limit: number, route: string, listType: string) {
     const [list, setList] = useState<Array<Type>>([]);
@@ -11,6 +12,13 @@ function useListLoading<Type>(limit: number, route: string, listType: string) {
         await new Promise((r) => setTimeout(r, 500));
         const res = await fetchAPI(`${route}/?limit=${limit}&skip=${skip}`);
         setIsLoading(false);
+        if (
+            res.body[listType] == null ||
+            typeof res.body[listType][Symbol.iterator] !== "function"
+        ) {
+            NotificationManager.error("Something went wrong :(");
+            return null;
+        }
         setList((list) => {
             return [...list, ...res.body[listType]];
         });

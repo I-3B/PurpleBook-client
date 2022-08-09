@@ -1,6 +1,6 @@
 @use "var";
 %card {
-  word-wrap: break-word;
+  word-break: break-word;
   display: flex;
   flex-direction: column;
   border-radius: 3px;
@@ -15,7 +15,8 @@
     .posted-at {
       position: absolute;
       right: 1rem;
-      top: 0px;
+      top: 2px;
+      z-index: 2;
     }
   }
   a {
@@ -34,5 +35,4 @@
       transform: scale(1.1);
     }
   }
-
 }

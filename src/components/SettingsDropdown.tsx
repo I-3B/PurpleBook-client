@@ -1,6 +1,6 @@
 import "./style/SettingsDropdown.scss";
-const userId = localStorage.getItem("userId");
 function SettingsDropdown(props: { children: React.ReactNode; userId?: string }) {
+    const userId = localStorage.getItem("userId");
     const toggleActive = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const kebab = e.currentTarget;
         kebab.querySelector(".middle")?.classList.toggle("active");

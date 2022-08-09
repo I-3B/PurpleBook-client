@@ -15,7 +15,9 @@
     font-weight: normal;
     font-size: 2.5rem;
   }
-  input[type="text"] {
+  input[type="text"],
+  input[type="password"],
+  input[type="email"] {
     color: #111;
   }
   input[type="submit"],

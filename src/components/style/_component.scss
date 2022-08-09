@@ -12,7 +12,7 @@
 .button-colored {
   background-color: var.$primary;
   &:hover {
-    background-color: darken($color: var.$primary, $amount: 10%);
+    background-color: lighten($color: var.$primary, $amount: 10%);
   }
 }
 .button-radius {
