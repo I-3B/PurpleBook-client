@@ -1,77 +1,12 @@
 import ReactDOM from "react-dom";
-import { ErrorBoundary } from "react-error-boundary";
-import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import EditPost from "./components/EditPost";
-import EditUser from "./components/EditUser";
-import Feed from "./components/Feed";
-import Header from "./components/Header";
-import Loading from "./components/Loading";
-import Login from "./components/Login";
-import NewPost from "./components/NewPost";
-import PostPage from "./components/PostPage";
-import ProfilePage from "./components/ProfilePage";
-import RequireAuth from "./components/RequireAuth";
-import Signup from "./components/Signup";
-import { AuthProvider } from "./hooks/useAuth";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./reset.scss";
 export const API_BASE_URL = "http://localhost:8080/api";
 
-ReactDOM.render(
-    <Router>
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <AuthProvider>
-                <Header />
-                <Routes>
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/" element={<RequireAuth />}>
-                        <Route path="/" element={<Feed />} />
-                        <Route path="/new-post" element={<NewPost />} />
-                        <Route path="/posts/:postId" element={<PostPage />} />
-                        <Route path="/posts/:postId/edit" element={<EditPost />} />
-                        <Route path="/posts/:postId/comments" element={<PostPage />} />
-                        <Route path="/posts/:postId/comments/:commentId" element={<PostPage />} />
-                        <Route
-                            path="/posts/:postId/comments/:commentId/edit"
-                            element={<PostPage />}
-                        />
-                        <Route path="/users/:userId/" element={<ProfilePage show="posts" />} />
-                        <Route path="/users/:userId/edit" element={<EditUser />} />
-                        <Route
-                            path="/users/:userId/comments"
-                            element={<ProfilePage show="comments" />}
-                        />
-                        <Route
-                            path="/users/:userId/friends"
-                            element={<ProfilePage show="friends" />}
-                        />
-                        <Route path="/*" element={<Loading />} />
-                    </Route>
-                </Routes>
-                <NotificationContainer />
-            </AuthProvider>
-        </ErrorBoundary>
-    </Router>,
-    document.getElementById("root")
-);
-function ErrorFallback(props: { error: Error }) {
-    return (
-        <div>
-            <p>{props.error.message}</p>
-            <button
-                onClick={() => {
-                    window.location.reload();
-                }}
-                style={{ color: "black" }}
-            >
-                Reload page
-            </button>
-        </div>
-    );
-}
+ReactDOM.render(<App />, document.getElementById("root"));
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

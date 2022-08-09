@@ -1,0 +1,18 @@
+@use "/src/components/style/var";
+
+* {
+  color: var.$text;
+}
+html,
+body {
+  min-width: fit-content;
+}
+
+body {
+  background-color: var.$background;
+}
+a {
+  font-style: normal;
+}
+.App {
+}
