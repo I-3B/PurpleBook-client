@@ -28,8 +28,8 @@ function useListLoading<Type>(limit: number, route: string, listType: string) {
         }
     };
     useEffect(() => {
-        fetchMoreToList(skip);
-    }, [skip]);
+        if (route) fetchMoreToList(skip);
+    }, [skip,route]);
     return {
         isThereMoreFromList,
         list,

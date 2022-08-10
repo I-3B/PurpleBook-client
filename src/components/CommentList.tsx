@@ -12,22 +12,27 @@ interface Props {
 }
 function CommentList({ commentToEdit, commentUpdated }: Props) {
     const { postId, commentId } = useParams();
-    const route = `/posts/${postId}`;
+    const route = `posts/${postId}/comments`;
+    const [commentsRoute, setCommentsRoute] = useState(route);
+    const [localIsLoading, setLocalIsLoading] = useState(false);
     const {
         setList: setCommentList,
         isThereMoreFromList: isThereMoreComments,
         loadMoreFromList: loadMoreComments,
         isLoading,
         list,
-    } = useListLoading<CommentI>(10, `${route}/comments`, "comments");
+    } = useListLoading<CommentI>(10, ``, "comments");
     const [comments, setComments] = useState<Array<CommentI>>([]);
+
     const location = useLocation().pathname;
     const goToComment = location.includes("comments");
     const editComment = location.includes("edit");
     const [goneToComments, setGoneToComments] = useState(false);
     const getComment = async () => {
-        const res = await fetchAPI(`${route}/comments/${commentId}`);
+        setLocalIsLoading(true);
+        const res = await fetchAPI(`${route}/${commentId}`);
         if (res.status !== 404) {
+            setLocalIsLoading(false);
             setComments([res.body.comment]);
         }
     };
@@ -53,6 +58,9 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
         });
     };
     useEffect(() => {
+        setLocalIsLoading(isLoading);
+    }, [isLoading]);
+    useEffect(() => {
         setCommentList((comments) => {
             const editedCommentIndex = comments.findIndex(
                 (comment) => comment._id === commentUpdated?.id
@@ -64,8 +72,11 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
         });
     }, [commentUpdated]);
     useEffect(() => {
-        if (commentId) getComment();
-        else {
+        if (commentId) {
+            setCommentsRoute("");
+            getComment();
+        } else {
+            setCommentsRoute(route);
             setComments(list);
         }
     }, [commentId, editComment, list]);
@@ -103,7 +114,7 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
             {isThereMoreComments && !commentId && !isLoading && (
                 <button onClick={loadMoreComments}>Show more Comments</button>
             )}
-            {isLoading && <Loading />}
+            {localIsLoading && <Loading />}
         </WithEmptyMessage>
     );
 }
