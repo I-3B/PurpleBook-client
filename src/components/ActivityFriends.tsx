@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useListLoading from "../hooks/useListLoading";
-import { FriendI } from "../interfaces/User";
-import {FriendCard} from "./FriendComponents";
+import { UserWithStateI } from "../interfaces/User";
+import { FriendCard } from "./FriendComponents";
 import Loading from "./Loading";
 
 function ActivityFriends() {
-    const [friends, setFriends] = useState<Array<FriendI>>([]);
+    const [friends, setFriends] = useState<Array<UserWithStateI>>([]);
     const { userId } = useParams();
     const route = `users/${userId}/friends`;
-    const { list, isLoading } = useListLoading<FriendI>(0, route, "friends");
+    const { list, isLoading } = useListLoading<UserWithStateI>(0, route, "friends");
 
     useEffect(() => {
         setFriends(list);
