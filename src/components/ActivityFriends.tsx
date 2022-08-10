@@ -4,6 +4,7 @@ import useListLoading from "../hooks/useListLoading";
 import { UserWithStateI } from "../interfaces/User";
 import { FriendCard } from "./FriendComponents";
 import Loading from "./Loading";
+import WithEmptyMessage from "./WithEmptyMessage";
 
 function ActivityFriends() {
     const [friends, setFriends] = useState<Array<UserWithStateI>>([]);
@@ -16,11 +17,13 @@ function ActivityFriends() {
     }, [list]);
     return (
         <section className="friends">
-            {friends.map((friend) => {
-                return <FriendCard friend={friend} key={friend._id} />;
-            })}
+            <WithEmptyMessage show={!friends.length && !isLoading} message="No friends ಥ_ಥ">
+                {friends.map((friend) => {
+                    return <FriendCard friend={friend} key={friend._id} />;
+                })}
 
-            {isLoading && <Loading />}
+                {isLoading && <Loading />}
+            </WithEmptyMessage>
         </section>
     );
 }

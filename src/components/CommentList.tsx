@@ -5,6 +5,7 @@ import CommentI from "../interfaces/Comment";
 import { fetchAPI } from "../utils/fetchAPI";
 import CommentCard from "./CommentCard";
 import Loading from "./Loading";
+import WithEmptyMessage from "./WithEmptyMessage";
 interface Props {
     commentToEdit: (commentContent: string) => void;
     commentUpdated?: { id: string; content: string };
@@ -85,7 +86,10 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
     }, [comments, commentId, goToComment, editComment]);
 
     return (
-        <>
+        <WithEmptyMessage
+            show={!comments.length && !localIsLoading}
+            message="No comments, for now..."
+        >
             {comments.map((comment) => {
                 return (
                     <CommentCard
@@ -100,7 +104,7 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
                 <button onClick={loadMoreComments}>Show more Comments</button>
             )}
             {isLoading && <Loading />}
-        </>
+        </WithEmptyMessage>
     );
 }
 export default CommentList;

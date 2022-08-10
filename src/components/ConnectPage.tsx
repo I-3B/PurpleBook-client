@@ -6,6 +6,7 @@ import { FriendRecommendCard, FriendRequestCard } from "./FriendComponents";
 import { HeaderRefI } from "./Header";
 import Loading from "./Loading";
 import "./style/ConnectPage.scss";
+import WithEmptyMessage from "./WithEmptyMessage";
 interface ConnectPageI {
     HeaderRef: React.RefObject<HeaderRefI>;
 }
@@ -41,25 +42,29 @@ function ConnectPage({ HeaderRef }: ConnectPageI) {
         <div className="connect-page">
             <section className="friend-requests">
                 <header>Friend requests</header>
-                {FRQ.map((friendRequest) => {
-                    return (
-                        <FriendRequestCard
-                            friendRequest={friendRequest}
-                            key={friendRequest.user._id}
-                        />
-                    );
-                })}
-                {FRQIsLoading && <Loading />}
+                <WithEmptyMessage show={!FRQ.length && !FRQIsLoading} message="Wow, such empty ⚆_⚆">
+                    {FRQ.map((friendRequest) => {
+                        return (
+                            <FriendRequestCard
+                                friendRequest={friendRequest}
+                                key={friendRequest.user._id}
+                            />
+                        );
+                    })}
+                    {FRQIsLoading && <Loading />}
+                </WithEmptyMessage>
             </section>
             <section className="friend-recommendation">
                 <header>Friend recommendation</header>
-                {FRC.map((FRC) => {
-                    return <FriendRecommendCard friendRecommendation={FRC} key={FRC._id} />;
-                })}
-                {FRCIsLoading && <Loading />}
-                {isThereMoreFRC && !FRCIsLoading && (
-                    <button onClick={loadMoreFRC}>Show more recommendation</button>
-                )}
+                <WithEmptyMessage show={!FRC.length && !FRCIsLoading} message="Wow, such empty ⚆_⚆">
+                    {FRC.map((FRC) => {
+                        return <FriendRecommendCard friendRecommendation={FRC} key={FRC._id} />;
+                    })}
+                    {FRCIsLoading && <Loading />}
+                    {isThereMoreFRC && !FRCIsLoading && (
+                        <button onClick={loadMoreFRC}>Show more recommendation</button>
+                    )}
+                </WithEmptyMessage>
             </section>
         </div>
     );

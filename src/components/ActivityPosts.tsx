@@ -5,6 +5,7 @@ import PostI from "../interfaces/Post";
 import Loading from "./Loading";
 import PostCard from "./PostCard";
 import PostedAt from "./PostedAt";
+import WithEmptyMessage from "./WithEmptyMessage";
 function ActivityPosts() {
     const { userId } = useParams();
     const route = `users/${userId}/posts`;
@@ -29,21 +30,23 @@ function ActivityPosts() {
 
     return (
         <section className="posts">
-            {posts.map((post) => {
-                return (
-                    <PostCard
-                        linkToPost={true}
-                        key={post._id}
-                        post={post}
-                        postDeleted={postDeletedCallback}
-                        author={userId}
-                    >
-                        <header>
-                            <PostedAt createdAt={post.createdAt} />
-                        </header>
-                    </PostCard>
-                );
-            })}
+            <WithEmptyMessage show={!posts.length && !isLoading} message="No posts, for now...">
+                {posts.map((post) => {
+                    return (
+                        <PostCard
+                            linkToPost={true}
+                            key={post._id}
+                            post={post}
+                            postDeleted={postDeletedCallback}
+                            author={userId}
+                        >
+                            <header>
+                                <PostedAt createdAt={post.createdAt} />
+                            </header>
+                        </PostCard>
+                    );
+                })}
+            </WithEmptyMessage>
             {isThereMorePosts && !isLoading && (
                 <button className="load-more" onClick={loadMoreFromList}>
                     Show more posts

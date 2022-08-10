@@ -8,6 +8,7 @@ import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
 import PostedAt from "./PostedAt";
 import "./style/NotificationsPage.scss";
+import WithEmptyMessage from "./WithEmptyMessage";
 interface LinkI {
     linkId: string;
     ref: string;
@@ -35,13 +36,16 @@ function NotificationsPage({ HeaderRef }: NotificationsPageProps) {
     }, [list, HeaderRef]);
     return (
         <section className="notifications-page">
-            {list.map((notification) => {
-                return <NotificationCard notification={notification} key={notification._id} />;
-            })}
-            {isLoading && <Loading />}
-            {!isLoading && isThereMoreFromList && (
-                <button onClick={loadMoreFromList}>show more notifications</button>
-            )}
+            <header>Notifications</header>
+            <WithEmptyMessage show={!list.length && !isLoading} message=" Wow, such empty ⚆_⚆">
+                {list.map((notification) => {
+                    return <NotificationCard notification={notification} key={notification._id} />;
+                })}
+                {isLoading && <Loading />}
+                {!isLoading && isThereMoreFromList && (
+                    <button onClick={loadMoreFromList}>show more notifications</button>
+                )}
+            </WithEmptyMessage>
         </section>
     );
 }

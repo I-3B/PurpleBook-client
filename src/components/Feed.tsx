@@ -7,6 +7,7 @@ import PostCard from "./PostCard";
 import PostedAt from "./PostedAt";
 import "./style/Feed.scss";
 import UserAddress from "./UserAddress";
+import WithEmptyMessage from "./WithEmptyMessage";
 function Feed() {
     const [posts, setPosts] = useState<Array<PostI>>([]);
     const {
@@ -30,21 +31,26 @@ function Feed() {
     return (
         <section className="feed">
             <Link to="/new-post">Add post</Link>
-            {posts.map((post) => {
-                return (
-                    <PostCard
-                        linkToPost={true}
-                        key={post._id}
-                        post={post}
-                        postDeleted={postDeletedCallback}
-                    >
-                        <header>
-                            <UserAddress user={post.author} />
-                            <PostedAt createdAt={post.createdAt} />
-                        </header>
-                    </PostCard>
-                );
-            })}
+            <WithEmptyMessage
+                show={!posts.length && !isLoading}
+                message="No posts in your feed, try posting or adding friends."
+            >
+                {posts.map((post) => {
+                    return (
+                        <PostCard
+                            linkToPost={true}
+                            key={post._id}
+                            post={post}
+                            postDeleted={postDeletedCallback}
+                        >
+                            <header>
+                                <UserAddress user={post.author} />
+                                <PostedAt createdAt={post.createdAt} />
+                            </header>
+                        </PostCard>
+                    );
+                })}
+            </WithEmptyMessage>
             {isLoading && <Loading />}
             {isThereMorePosts && !isLoading && (
                 <button onClick={loadMoreFromList}>Show more posts</button>

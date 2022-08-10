@@ -10,6 +10,7 @@ import LinkButton from "./LinkButton";
 import Loading from "./Loading";
 import PostedAt from "./PostedAt";
 import SettingsDropdown from "./SettingsDropdown";
+import WithEmptyMessage from "./WithEmptyMessage";
 interface postPreview {
     _id: string;
     postAuthorFirstName: string;
@@ -47,21 +48,26 @@ function ActivityComments() {
 
     return (
         <section className="posts">
-            {comments.map((comment) => {
-                return (
-                    <CommentProfile
-                        key={comment._id}
-                        comment={comment}
-                        commentDeleted={commentDeletedCallback}
-                    />
-                );
-            })}
-            {isThereMoreComments && !isLoading && (
-                <button className="load-more" onClick={loadMoreFromList}>
-                    Show more posts
-                </button>
-            )}
-            {isLoading && <Loading />}
+            <WithEmptyMessage
+                show={!comments.length && !isLoading}
+                message="No comments, for now..."
+            >
+                {comments.map((comment) => {
+                    return (
+                        <CommentProfile
+                            key={comment._id}
+                            comment={comment}
+                            commentDeleted={commentDeletedCallback}
+                        />
+                    );
+                })}
+                {isThereMoreComments && !isLoading && (
+                    <button className="load-more" onClick={loadMoreFromList}>
+                        Show more posts
+                    </button>
+                )}
+                {isLoading && <Loading />}
+            </WithEmptyMessage>
         </section>
     );
 }
