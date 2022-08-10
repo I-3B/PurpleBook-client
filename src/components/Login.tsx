@@ -1,5 +1,6 @@
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
 import { Navigate } from "react-router";
+import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { responseError } from "../interfaces/responseError";
 import Loading from "./Loading";
@@ -42,6 +43,9 @@ function Login() {
 
             {formLoading}
             <input type="submit" value="login"></input>
+            <p>
+                Don't have an account? <Link to="/signup">Signup</Link>
+            </p>
         </form>
     );
 }

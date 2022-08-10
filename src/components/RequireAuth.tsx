@@ -6,7 +6,7 @@ function RequireAuth() {
     if (authed === true) {
         return <Outlet />;
     } else {
-        return <Navigate to="/login" />;
+        return <Navigate to="/signup" />;
     }
 }
 export default RequireAuth;

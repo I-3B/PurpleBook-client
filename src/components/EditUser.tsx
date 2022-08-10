@@ -41,7 +41,6 @@ function EditUser({ HeaderRef }: EditUserProps) {
         } else if (res.status !== 200) {
             NotificationManager.error(res.body, res.status);
         } else {
-            console.log(HeaderRef.current);
             HeaderRef.current?.updateUserData();
             return navigate("/" + route);
         }
@@ -58,7 +57,6 @@ function EditUser({ HeaderRef }: EditUserProps) {
         const confirmed = window.confirm("Delete this account?");
         if (confirmed) {
             const deletedRes = await fetchAPI(route, "DELETE");
-            console.log(deletedRes.status);
             if (deletedRes.status === 200) {
                 logout();
                 navigate("/login");

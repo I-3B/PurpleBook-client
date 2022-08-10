@@ -1,5 +1,5 @@
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPIMultiPart } from "../utils/fetchAPI";
@@ -62,6 +62,9 @@ function Signup() {
             <input id="image" type="file" name="image" accept=".jpg, .jpeg, .png"></input>
             {formLoading}
             <input type="submit" value="Signup"></input>
+            <p>
+                Already a user? <Link to="/login">Login</Link>
+            </p>
         </form>
     );
 }
