@@ -43,6 +43,7 @@ function FriendButtons({ friendId, initialFriendState }: Props) {
                 break;
             case FS.FRIEND_REQUEST_RECEIVED:
                 setFriendState(FS.FRIEND);
+                setEnableRemoveReceivedFR(false);
                 fetchAPI(`${userRoute}/friends/${friendId}`, "POST");
                 break;
         }
