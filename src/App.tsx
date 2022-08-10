@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
@@ -21,9 +21,6 @@ import Signup from "./components/Signup";
 import { AuthProvider } from "./hooks/useAuth";
 function App() {
     const HeaderRef = useRef<HeaderRefI>(null);
-    useEffect(() => {
-        console.log(HeaderRef);
-    });
     return (
         <div className="App">
             <Router>

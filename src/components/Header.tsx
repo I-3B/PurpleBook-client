@@ -17,8 +17,6 @@ const Header = forwardRef((_undefined, _ref) => {
     const getUserData = async () => {
         const res = await fetchAPI("users/profile");
         setUserData(res.body.user);
-        console.log(res.body.user);
-
         //TODO remove for production
         localStorage.setItem("userId", res.body.user._id);
     };
@@ -70,7 +68,7 @@ const Header = forwardRef((_undefined, _ref) => {
                             <li>
                                 <Link to="/connect" className="number-in-icon">
                                     <img src="/assets/friends.png" alt="friends" />
-                                    {userData?.friendRequestsCount !== undefined     &&
+                                    {userData?.friendRequestsCount !== undefined &&
                                         userData.friendRequestsCount !== 0 && (
                                             <span>{userData?.friendRequestsCount}</span>
                                         )}

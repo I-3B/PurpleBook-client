@@ -53,11 +53,10 @@
       gap: 0.5rem;
     }
     .friends {
+      margin: 0.5rem 0;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      background-color: var.$background-1;
-
     }
     .load-more {
       @extend .button-radius;

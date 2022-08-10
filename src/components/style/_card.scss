@@ -25,10 +25,13 @@
   .buttons {
     display: flex;
     button {
-      transition: 0.3s;
       cursor: pointer;
       background-color: transparent;
       border: none;
+    }
+    a,
+    button {
+      transition: 0.3s;
     }
     button:hover,
     a:hover {
