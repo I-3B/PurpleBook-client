@@ -14,6 +14,9 @@
   .post-reactions {
     display: flex;
     gap: 0.3rem;
+    a:hover {
+      text-decoration: underline;
+    }
   }
   .link-wrapper {
     display: flex;

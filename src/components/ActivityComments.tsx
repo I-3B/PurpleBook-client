@@ -72,7 +72,7 @@ interface cpProps {
 function CommentProfile({ comment, commentDeleted }: cpProps) {
     const { userId } = useParams();
     const postRoute = `/posts/${comment.post._id}`;
-    const commentRoute = `${postRoute}/comments/${comment._id}`;    
+    const commentRoute = `${postRoute}/comments/${comment._id}`;
     const [likesCount, setLikesCount] = useState(comment.likesCount);
     const deleteComment = async () => {
         const res = await fetchAPI(commentRoute, "DELETE");
@@ -92,7 +92,7 @@ function CommentProfile({ comment, commentDeleted }: cpProps) {
         <article key={comment._id} id={comment._id} className="comment">
             <SettingsDropdown userId={userId}>
                 <li>
-                    <a href={`${commentRoute}/edit`}>Edit</a>
+                    <Link to={`${commentRoute}/edit`}>Edit</Link>
                 </li>
                 <li>
                     <button onClick={deleteComment}>Delete</button>

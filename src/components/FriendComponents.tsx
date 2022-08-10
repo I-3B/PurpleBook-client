@@ -1,9 +1,9 @@
-import { FriendI, friendRequestI, RecommendI } from "../interfaces/User";
+import { friendRequestI, RecommendI, UserWithStateI } from "../interfaces/User";
 import FriendButtons from "./FriendButtons";
 import "./style/FriendCard.scss";
 import UserAddress from "./UserAddress";
 interface friendCardProps {
-    friend: FriendI;
+    friend: UserWithStateI;
     classes?: string;
     children?: React.ReactNode;
 }

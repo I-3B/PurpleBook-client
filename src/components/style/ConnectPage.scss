@@ -21,6 +21,9 @@
   display: flex;
   flex-direction: column;
   gap: 1em;
+  header {
+    font-size: 2rem;
+  }
   .friend-card {
     width: 90%;
   }

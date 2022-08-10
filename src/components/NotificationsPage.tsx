@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import useListLoading from "../hooks/useListLoading";
 import { BufferData } from "../interfaces/User";
 import { fetchAPI } from "../utils/fetchAPI";
@@ -55,12 +56,12 @@ function NotificationCard({ notification }: NotificationCardProps) {
             <header>
                 <PostedAt createdAt={notification.createdAt} />
             </header>
-            <a href={imageLink} className="image-link">
+            <Link to={imageLink} className="image-link">
                 <ImageBfr image={notification.image} type="profile" />
-            </a>
-            <a href={notificationLink} className="notification-link">
+            </Link>
+            <Link to={notificationLink} className="notification-link">
                 <span>{notification.content}</span>
-            </a>
+            </Link>
         </article>
     );
 }
