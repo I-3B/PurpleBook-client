@@ -37,7 +37,7 @@ function PostCard({ author, post, children, postDeleted, linkToPost = true }: Pr
         <article key={post._id} id={post._id} className="post-card">
             <SettingsDropdown userId={author || post.author._id}>
                 <li>
-                    <a href={`${route}/edit`}>Edit</a>
+                    <Link to={`${route}/edit`}>Edit</Link>
                 </li>
                 <li>
                     <button onClick={deletePost}>delete</button>
@@ -50,10 +50,12 @@ function PostCard({ author, post, children, postDeleted, linkToPost = true }: Pr
             </WithLink>
             <div className="post-reactions">
                 {!!likesCount && (
-                    <span>
-                        {likesCount}
-                        {" likes"}
-                    </span>
+                    <Link to={route + "/likes"}>
+                        <span>
+                            {likesCount}
+                            {" likes"}
+                        </span>
+                    </Link>
                 )}
                 {!!post.commentsCount && (
                     <span>

@@ -9,6 +9,7 @@ import EditPost from "./components/EditPost";
 import EditUser from "./components/EditUser";
 import Feed from "./components/Feed";
 import Header, { HeaderRefI } from "./components/Header";
+import LikesPage from "./components/LikesPage";
 import Loading from "./components/Loading";
 import Login from "./components/Login";
 import NewPost from "./components/NewPost";
@@ -46,12 +47,18 @@ function App() {
                                 {/* posts */}
                                 <Route path="/new-post" element={<NewPost />} />
                                 <Route path="/posts/:postId" element={<PostPage />} />
+                                <Route path="/posts/:postId/likes" element={<LikesPage />} />
                                 <Route path="/posts/:postId/edit" element={<EditPost />} />
                                 <Route path="/posts/:postId/comments" element={<PostPage />} />
                                 <Route
                                     path="/posts/:postId/comments/:commentId"
                                     element={<PostPage />}
                                 />
+                                <Route
+                                    path="/posts/:postId/comments/:commentId/likes"
+                                    element={<LikesPage />}
+                                />
+
                                 <Route
                                     path="/posts/:postId/comments/:commentId/edit"
                                     element={<PostPage />}

@@ -2,6 +2,7 @@ import he from "he";
 import parse from "html-react-parser";
 import { useState } from "react";
 import { NotificationManager } from "react-notifications";
+import { Link } from "react-router-dom";
 import CommentI from "../interfaces/Comment";
 import { fetchAPI } from "../utils/fetchAPI";
 import LikeButton from "./LikeButton";
@@ -32,7 +33,7 @@ function CommentCard({ comment, postId, commentDeleted }: Props) {
         <article key={comment._id} id={comment._id} className="comment">
             <SettingsDropdown userId={comment.author._id}>
                 <li>
-                    <a href={`${route}/edit`}>Edit</a>
+                    <Link to={`${route}/edit`}>Edit</Link>
                 </li>
                 <li>
                     <button onClick={deleteComment}>Delete</button>
@@ -49,7 +50,9 @@ function CommentCard({ comment, postId, commentDeleted }: Props) {
                     likedByUser={comment.likedByUser}
                     updateLikesCountBy={updatedLikesCountCallback}
                 />
-                <span>{likesCount}</span>
+                <Link to={route + "/likes"}>
+                    <span>{likesCount}</span>
+                </Link>
                 <LinkButton link={route} />
             </div>
         </article>
