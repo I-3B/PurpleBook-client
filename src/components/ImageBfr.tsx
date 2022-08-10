@@ -24,7 +24,7 @@ const getImageForType = (type: string) => {
         case "profile":
             imageSrc += "profile.png";
             break;
-        case "post":
+        default:
             imageSrc = "";
             break;
     }

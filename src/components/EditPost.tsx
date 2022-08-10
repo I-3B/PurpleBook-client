@@ -5,6 +5,7 @@ import PostI from "../interfaces/Post";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPI, fetchAPIForm } from "../utils/fetchAPI";
 import Editor from "./Editor";
+import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
 import "./style/Form.scss";
 function EditPost() {
@@ -47,6 +48,7 @@ function EditPost() {
         <form className="form" onSubmit={formSubmitted}>
             <header>Editing {post?.author.firstName}'s post</header>
             <Editor ref={editorTextRef} />
+            <ImageBfr image={post?.image} type="post" />
             {loading}
             {errors && (
                 <ul>
