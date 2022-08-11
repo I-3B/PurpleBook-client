@@ -13,7 +13,7 @@ interface Props {
 function CommentList({ commentToEdit, commentUpdated }: Props) {
     const { postId, commentId } = useParams();
     const route = `posts/${postId}/comments`;
-    const [commentsRoute, setCommentsRoute] = useState(route);
+    const [commentsRoute, setCommentsRoute] = useState("");
     const [localIsLoading, setLocalIsLoading] = useState(false);
     const {
         setList: setCommentList,
@@ -21,7 +21,7 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
         loadMoreFromList: loadMoreComments,
         isLoading,
         list,
-    } = useListLoading<CommentI>(10, ``, "comments");
+    } = useListLoading<CommentI>(10, commentsRoute, "comments");
     const [comments, setComments] = useState<Array<CommentI>>([]);
 
     const location = useLocation().pathname;
