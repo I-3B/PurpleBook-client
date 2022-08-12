@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { useLocation, useParams } from "react-router-dom";
 import useListLoading from "../hooks/useListLoading";
 import CommentI from "../interfaces/Comment";
@@ -31,9 +32,11 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
     const getComment = async () => {
         setLocalIsLoading(true);
         const res = await fetchAPI(`${route}/${commentId}`);
-        if (res.status !== 404) {
+        if (res.status === 200) {
             setLocalIsLoading(false);
             setComments([res.body.comment]);
+        } else {
+            NotificationManager.error(`${res.status}: Comment ${res.body}`);
         }
     };
     const goTo = (element: Element | null) => {

@@ -1,5 +1,6 @@
 import he from "he";
 import { useEffect, useRef, useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { useNavigate, useParams } from "react-router-dom";
 import PostI from "../interfaces/Post";
 import { responseError } from "../interfaces/responseError";
@@ -19,7 +20,11 @@ function EditPost() {
 
     const getPost = async () => {
         const res = await fetchAPI(postRoute);
-        setPost(res.body.post);
+        if (res.status === 200) {
+            setPost(res.body.post);
+        } else {
+            NotificationManager.error(`${res.status} ${res.body}`);
+        }
     };
     const formSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,6 +41,8 @@ function EditPost() {
             setErrors(res.body.errors);
         } else if (res.status === 200) {
             navigate(postRoute);
+        } else {
+            NotificationManager.error(`${res.status} ${res.body}`);
         }
     };
     useEffect(() => {

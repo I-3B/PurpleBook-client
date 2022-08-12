@@ -16,6 +16,9 @@ const Header = forwardRef((_undefined, _ref) => {
     const [userData, setUserData] = useState<profile>();
     const getUserData = async () => {
         const res = await fetchAPI("users/profile");
+        if (!res.body.user) {
+            return logout();
+        }
         setUserData(res.body.user);
         //TODO remove for production
         localStorage.setItem("userId", res.body.user._id);

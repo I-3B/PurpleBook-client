@@ -12,12 +12,14 @@ function useListLoading<Type>(limit: number, route: string, listType: string) {
         await new Promise((r) => setTimeout(r, 500));
         const res = await fetchAPI(`${route}/?limit=${limit}&skip=${skip}`);
         setIsLoading(false);
+        if (res.status !== 200) {
+            return NotificationManager.error(`${res.status} ${res.body}`);
+        }
         if (
             res.body[listType] == null ||
             typeof res.body[listType][Symbol.iterator] !== "function"
         ) {
-            NotificationManager.error("Something went wrong :(");
-            return null;
+            return NotificationManager.error("Something went wrong :(");
         }
         setList((list) => {
             return [...list, ...res.body[listType]];
@@ -29,7 +31,7 @@ function useListLoading<Type>(limit: number, route: string, listType: string) {
     };
     useEffect(() => {
         if (route) fetchMoreToList(skip);
-    }, [skip,route]);
+    }, [skip, route]);
     return {
         isThereMoreFromList,
         list,

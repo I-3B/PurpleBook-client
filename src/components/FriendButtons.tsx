@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { fetchAPI } from "../utils/fetchAPI";
 import "./style/FriendButtons.scss";
 interface Props {
@@ -28,24 +29,34 @@ function FriendButtons({ friendId, initialFriendState }: Props) {
     const changeFriendState = async () => {
         const friendRoute = `users/${friendId}`;
         const userRoute = `users/${userId}`;
+        let route: string, method: string;
         switch (friendState) {
             case FS.NOT_FRIEND:
                 setFriendState(FS.FRIEND_REQUEST_SENT);
-                fetchAPI(`${friendRoute}/friend_requests`, "POST");
+                route = `${friendRoute}/friend_requests`;
+                method = "POST";
                 break;
             case FS.FRIEND:
                 setFriendState(FS.NOT_FRIEND);
-                fetchAPI(`${userRoute}/friends/${friendId}`, "DELETE");
+                route = `${userRoute}/friends/${friendId}`;
+                method = "DELETE";
                 break;
             case FS.FRIEND_REQUEST_SENT:
                 setFriendState(FS.NOT_FRIEND);
-                fetchAPI(`${userRoute}/sent_friend_requests/${friendId}`, "DELETE");
+                route = `${userRoute}/sent_friend_requests/${friendId}`;
+                method = "DELETE";
                 break;
             case FS.FRIEND_REQUEST_RECEIVED:
                 setFriendState(FS.FRIEND);
                 setEnableRemoveReceivedFR(false);
-                fetchAPI(`${userRoute}/friends/${friendId}`, "POST");
+                route = `${userRoute}/friends/${friendId}`;
+                method = "POST";
                 break;
+        }
+        const res = await fetchAPI(route, method);
+        if (res.status !== 200) {
+            const error = res.body.error ? res.body.error : res.body;
+            NotificationManager.error(error, res.status);
         }
     };
     const removeReceivedFR = async () => {
@@ -81,7 +92,7 @@ function FriendButtons({ friendId, initialFriendState }: Props) {
             setText(defaultText);
         }
     }, [hover, defaultText, hoverText]);
-    if (userId === friendId) return <></>;
+    // if (userId === friendId) return <></>;
     return (
         <div className="friend-buttons">
             <button

@@ -1,6 +1,7 @@
 import he from "he";
 import { createBrowserHistory } from "history";
 import { useEffect, useRef, useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPIForm } from "../utils/fetchAPI";
@@ -38,6 +39,8 @@ function CommentSection() {
             setCommentFormError(undefined);
             editorTextRef.current?.setText("");
             navigate(`${route}/comments/${res.body.commentId}`);
+        } else {
+            NotificationManager.error(`${res.status} ${res.body}`);
         }
     };
     const editCommentSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,6 +61,8 @@ function CommentSection() {
             editorTextRef.current?.setText("");
             setCommentUpdated({ id: commentId || "", content: editorText });
             navigate(`${route}/comments/${commentId}`);
+        } else {
+            NotificationManager.error(`${res.status} ${res.body}`);
         }
     };
     const cancelCommentEditing = () => {

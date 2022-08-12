@@ -1,4 +1,5 @@
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { Link, Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { responseError } from "../interfaces/responseError";
@@ -19,16 +20,21 @@ function Signup() {
         const formData = new FormData(e.currentTarget);
         const res = await fetchAPIMultiPart("auth/signup", "POST", formData);
 
-        if (res.status !== 201 && res.status !== 500) {
+        if (res.status === 400) {
             return readErrorMessages(res.body.errors, setFormErrors);
         }
-
+        if (res.status !== 201) {
+            return NotificationManager.error(`${res.status} ${res.body}`);
+        }
         setFormLoading(<></>);
 
         const email = formData.get("email");
         const password = formData.get("password");
         const loginRes = await login({ email, password });
         if (loginRes.status === 200) setLoggedIn(true);
+        else {
+            NotificationManager.error(`${res.status} ${res.body}`);
+        }
     };
 
     if (loggedIn) return <Navigate to="/" />;

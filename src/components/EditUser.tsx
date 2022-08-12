@@ -27,7 +27,11 @@ function EditUser({ HeaderRef }: EditUserProps) {
     const navigate = useNavigate();
     const loadUserData = async () => {
         const res = await fetchAPI(`${route}/edit_data`);
-        setFormData(res.body.user);
+        if (res.status === 200) {
+            setFormData(res.body.user);
+        } else {
+            NotificationManager.error(`${res.status} ${res.body}`);
+        }
     };
     const formSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -60,6 +64,8 @@ function EditUser({ HeaderRef }: EditUserProps) {
             if (deletedRes.status === 200) {
                 logout();
                 navigate("/login");
+            } else {
+                NotificationManager.error(`${deletedRes.status} ${deletedRes.body}`);
             }
         }
     };

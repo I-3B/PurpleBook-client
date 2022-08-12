@@ -84,12 +84,12 @@ function getLinks(links: Array<LinkI>) {
                 break;
         }
     });
-    const imageLink = `users/${userId}`;
+    const imageLink = `/users/${userId}`;
     let notificationLink;
     if (commentId) {
-        notificationLink = `posts/${postId}/comments/${commentId}`;
+        notificationLink = `/posts/${postId}/comments/${commentId}`;
     } else if (postId) {
-        notificationLink = `posts/${postId}`;
+        notificationLink = `/posts/${postId}`;
     } else {
         notificationLink = imageLink;
     }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { useNavigate, useParams } from "react-router-dom";
 import PostI from "../interfaces/Post";
 import { fetchAPI } from "../utils/fetchAPI";
@@ -21,8 +22,10 @@ function PostPage() {
         const res = await fetchAPI(`posts/${postId}`);
         if (res.status === 404) {
             setError(res.status + " " + res.body);
-        } else {
+        } else if (res.status === 200) {
             setPost(res.body.post);
+        } else {
+            NotificationManager.error(`${res.status} ${res.body}`);
         }
     };
 

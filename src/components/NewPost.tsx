@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { NotificationManager } from "react-notifications";
 import { useNavigate } from "react-router-dom";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPIMultiPart } from "../utils/fetchAPI";
@@ -28,6 +29,8 @@ function NewPost() {
             setErrors(res.body.errors);
         } else if (res.status === 201) {
             navigate(`/posts/${res.body.postId}`);
+        } else {
+            NotificationManager.error(`${res.status} ${res.body}`);
         }
     };
     return (

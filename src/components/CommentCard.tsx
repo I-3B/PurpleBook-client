@@ -27,6 +27,8 @@ function CommentCard({ comment, postId, commentDeleted }: Props) {
         if (res.status === 200) {
             commentDeleted(comment._id);
             NotificationManager.success("", "Comment deleted", 1000);
+        } else {
+            NotificationManager.error(`${res.status} ${res.body}`);
         }
     };
     return (
