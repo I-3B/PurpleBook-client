@@ -3,18 +3,20 @@
 
 .friend-buttons {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
   > * {
-    width: 50%;
+    flex-basis: 10em;
   }
   .friend-button {
     @extend .button-radius;
     @extend .button-colored;
+    margin: 0;
   }
   .remove-fr {
     @extend .button-radius;
+    margin: 0;
     background-color: transparent;
     color: var.$text;
     border: 1px solid var.$text;

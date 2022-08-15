@@ -1,0 +1,30 @@
+@use "var";
+@use "card";
+.friend-card {
+  @extend %card;
+  padding: 0.5em 0.5em;
+  box-sizing: border-box;
+  background-color: var.$background-1;
+  width: 50em;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  > * {
+    max-width: 100%;
+  }
+  .user-address {
+    img {
+      width: 5rem;
+    }
+    span {
+      font-size: 1.1em;
+    }
+  }
+  .friend-buttons {
+    justify-content: flex-end;
+  }
+}
+.not-viewed {
+  background-color: var.$background-3;
+}

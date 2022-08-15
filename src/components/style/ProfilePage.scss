@@ -1,19 +1,30 @@
 @use "var";
 @use "component";
 @use "card";
+$width: 40em;
 .profile-page {
-  margin: 1rem auto;
+  padding: 0.7rem;
+  margin: auto;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  max-width: 100%;
   width: 40rem;
-  gap: 5px;
+
   border-radius: 4px;
   overflow: hidden;
-  background-color: var.$background-1;
   .user {
+    background-color: var.$background-1;
+    margin: auto;
+    width: 100%;
+    box-sizing: border-box;
     padding: 1rem 3rem;
     display: flex;
     flex-direction: column;
+    gap: 0.4em;
+    .friend-buttons {
+      justify-content: center;
+    }
     > img {
       width: 100%;
       border-radius: 50%;
@@ -24,8 +35,12 @@
     }
   }
   .activity {
+    margin: auto;
     background-color: var.$background;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     .nav-buttons {
       display: flex;
       flex-direction: row;
@@ -49,11 +64,22 @@
     .posts {
       display: flex;
       flex-direction: column;
-      margin: 0.5rem 0;
       gap: 0.5rem;
+      .post-card {
+        box-sizing: border-box;
+        .content {
+          margin-top: 1em;
+        }
+      }
+    }
+    .comments {
+      .comment {
+        header {
+          margin-top: 2.5em;
+        }
+      }
     }
     .friends {
-      margin: 0.5rem 0;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -61,6 +87,8 @@
     .load-more {
       @extend .button-radius;
       @extend .button-colored;
+      width: 15em;
+      max-width: 70%;
       margin: auto;
     }
   }

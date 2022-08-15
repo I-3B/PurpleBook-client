@@ -56,16 +56,14 @@ function NotificationCard({ notification }: NotificationCardProps) {
     const { notificationLink, imageLink } = getLinks(notification.links);
 
     return (
-        <article className={"notification-card ".concat(notification.viewed ? "" : "viewed")}>
-            <header>
-                <PostedAt createdAt={notification.createdAt} />
-            </header>
+        <article className={"notification-card ".concat(notification.viewed ? "" : "not-viewed")}>
             <Link to={imageLink} className="image-link">
                 <ImageBfr image={notification.image} type="profile" />
             </Link>
             <Link to={notificationLink} className="notification-link">
                 <span>{notification.content}</span>
             </Link>
+            <PostedAt createdAt={notification.createdAt} />
         </article>
     );
 }

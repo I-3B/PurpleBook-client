@@ -92,7 +92,7 @@ function FriendButtons({ friendId, initialFriendState }: Props) {
             setText(defaultText);
         }
     }, [hover, defaultText, hoverText]);
-    // if (userId === friendId) return <></>;
+    if (userId === friendId) return <></>;
     return (
         <div className="friend-buttons">
             <button

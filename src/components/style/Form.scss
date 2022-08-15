@@ -3,9 +3,11 @@
   background-color: darken($color: var.$background-2, $amount: 4%);
   display: flex;
   flex-direction: column;
-  width: 80%;
-  margin: 2rem auto;
+  width: 40em;
+  max-width: 95%;
+  margin: 2em auto;
   padding: 2rem;
+  box-sizing: border-box;
   border-radius: 6px;
   font-size: 1.2rem;
   gap: 0.5rem;
@@ -56,11 +58,7 @@
     font-size: 1rem;
   }
 }
-@media screen and (min-width: 480px) {
-  .form {
-    max-width: 40rem;
-  }
-}
+
 // https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
 
 /* Customize the label (the container) */

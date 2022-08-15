@@ -1,26 +1,28 @@
 @use "var";
 %card {
+  position: relative;
   word-break: break-word;
   display: flex;
   flex-direction: column;
   border-radius: 3px;
   margin: auto;
-  padding: 1rem 0;
   gap: 0.7rem;
-  > * {
-    margin: 0 1rem;
-  }
+  padding: 0.7em;
+  box-sizing: border-box;
   header {
-    position: relative;
+    font-size: 0.75rem;
     .posted-at {
       position: absolute;
-      right: 1rem;
-      top: 2px;
+      right: 35px;
+      top: 16px;
       z-index: 2;
     }
   }
   a {
     text-decoration: none;
+  }
+  img {
+    margin: auto;
   }
   .buttons {
     display: flex;

@@ -24,8 +24,8 @@ function NewPost() {
         formData.set("content", editorText ? editorText : "");
         const res = await fetchAPIMultiPart("posts", "POST", formData);
         setLoading(<></>);
+        submitButton.disabled = false;
         if (res.status === 400) {
-            submitButton.disabled = false;
             setErrors(res.body.errors);
         } else if (res.status === 201) {
             navigate(`/posts/${res.body.postId}`);

@@ -90,7 +90,7 @@ const WithLink = (props: { link?: string; children: any }) =>
             {props.children}
         </Link>
     ) : (
-        props.children
+        <div className="content-container">{props.children}</div>
     );
 
 export default PostCard;

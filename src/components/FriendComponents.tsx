@@ -1,6 +1,6 @@
 import { friendRequestI, RecommendI, UserWithStateI } from "../interfaces/User";
 import FriendButtons from "./FriendButtons";
-import "./style/FriendCard.scss";
+import "./style/FriendComponents.scss";
 import UserAddress from "./UserAddress";
 interface friendCardProps {
     friend: UserWithStateI;
@@ -12,11 +12,11 @@ function FriendCard({ friend, classes, children }: friendCardProps) {
     return (
         <article className={"friend-card " + classes}>
             <UserAddress user={friend} />
+            {children}
             <FriendButtons
                 friendId={friend._id}
                 initialFriendState={friend.friendState}
             ></FriendButtons>
-            {children}
         </article>
     );
 }

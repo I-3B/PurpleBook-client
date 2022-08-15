@@ -47,7 +47,7 @@ function ActivityComments() {
     }, [list]);
 
     return (
-        <section className="posts">
+        <section className="comments">
             <WithEmptyMessage
                 show={!comments.length && !isLoading}
                 message="No comments, for now..."

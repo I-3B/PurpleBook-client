@@ -1,8 +1,6 @@
 @use "var";
 $transition: 0.4s;
 .page-header {
-  min-width: max-content;
-  margin: auto;
   background-color: var.$primary;
   padding: 0.3rem;
   * {
@@ -26,8 +24,8 @@ $transition: 0.4s;
       transition: color $transition, text-decoration $transition;
     }
     > a:hover {
-      color: var.$secondary;
-      text-decoration-color: var.$primary;
+      text-decoration: underline;
+      text-decoration-color: var.$text;
     }
   }
   span {
@@ -55,9 +53,5 @@ $transition: 0.4s;
       right: -0.4rem;
       top: 0.3rem;
     }
-  }
-}
-@media screen and (min-width: 480px) {
-  .page-header {
   }
 }
