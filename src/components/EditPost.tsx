@@ -36,14 +36,14 @@ function EditPost() {
         const editorText = editorTextRef.current?.getText();
         const res = await fetchAPIForm(postRoute, "PATCH", { content: editorText });
         setLoading(<></>);
-        if (res.status === 400) {
-            submitButton.disabled = false;
-            setErrors(res.body.errors);
-        } else if (res.status === 200) {
+        if (res.status === 200) {
             navigate(postRoute);
+        } else if (res.status === 400) {
+            setErrors(res.body.errors);
         } else {
             NotificationManager.error(`${res.status} ${res.body}`);
         }
+        submitButton.disabled = false;
     };
     useEffect(() => {
         getPost();

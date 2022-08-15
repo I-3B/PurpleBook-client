@@ -62,8 +62,12 @@ function EditUser({ HeaderRef }: EditUserProps) {
         if (confirmed) {
             const deletedRes = await fetchAPI(route, "DELETE");
             if (deletedRes.status === 200) {
-                logout();
-                navigate("/login");
+                if (userId === localStorage.getItem("userId")) {
+                    logout();
+                    navigate("/login");
+                } else {
+                    NotificationManager.success(`${deletedRes.status} ${deletedRes.body}`);
+                }
             } else {
                 NotificationManager.error(`${deletedRes.status} ${deletedRes.body}`);
             }

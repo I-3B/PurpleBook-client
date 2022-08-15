@@ -7,7 +7,7 @@ function SettingsDropdown(props: { children: React.ReactNode; userId?: string })
         kebab.querySelector(".cross")?.classList.toggle("active");
         kebab.querySelector(".dropdown")?.classList.toggle("active");
     };
-    if (props.userId === userId || !props.userId)
+    if (props.userId === userId || localStorage.getItem("isAdmin") === "true")
         return (
             <div className="kebab-container">
                 <div className="kebab" onClick={toggleActive}>

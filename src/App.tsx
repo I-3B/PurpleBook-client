@@ -4,6 +4,7 @@ import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.scss";
+import Admin from "./components/Admin";
 import ConnectPage from "./components/ConnectPage";
 import EditPost from "./components/EditPost";
 import EditUser from "./components/EditUser";
@@ -65,6 +66,7 @@ function App() {
                                     path="/users/:userId/"
                                     element={<ProfilePage show="posts" />}
                                 />
+                                <Route path="/users/:userId/admin/" element={<Admin />} />
                                 <Route
                                     path="/users/:userId/edit"
                                     element={<EditUser HeaderRef={HeaderRef} />}
