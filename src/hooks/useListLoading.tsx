@@ -8,8 +8,6 @@ function useListLoading<Type>(limit: number, route: string, listType: string) {
     const [isThereMoreFromList, setIsThereMorePosts] = useState(true);
     const fetchMoreToList = async (skip: number) => {
         setIsLoading(true);
-        //TODO remove for production
-        await new Promise((r) => setTimeout(r, 500));
         const res = await fetchAPI(`${route}/?limit=${limit}&skip=${skip}`);
         setIsLoading(false);
         if (res.status !== 200) {

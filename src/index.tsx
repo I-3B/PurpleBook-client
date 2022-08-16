@@ -3,7 +3,6 @@ import "react-notifications/lib/notifications.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./reset.scss";
-export const API_BASE_URL = "http://localhost:8080/api";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

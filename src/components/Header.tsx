@@ -20,8 +20,6 @@ const Header = forwardRef((_undefined, _ref) => {
             return logout();
         }
         setUserData(res.body.user);
-        //TODO remove for production
-        localStorage.setItem("userId", res.body.user._id);
     };
     const logoutClicked = () => {
         logout();

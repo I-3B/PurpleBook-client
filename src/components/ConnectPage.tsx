@@ -20,7 +20,6 @@ function ConnectPage({ HeaderRef }: ConnectPageI) {
         route,
         "friendRequests"
     );
-    //TODO put 15 for production
     // FRC friend recommendation
     const {
         list: FRC,
@@ -28,7 +27,7 @@ function ConnectPage({ HeaderRef }: ConnectPageI) {
         isThereMoreFromList: isThereMoreFRC,
         loadMoreFromList: loadMoreFRC,
     } = useListLoading<RecommendI>(
-        2,
+        10,
         `/users/${userId}/friend_recommendation`,
         "friendRecommendation"
     );
