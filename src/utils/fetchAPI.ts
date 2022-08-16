@@ -1,6 +1,7 @@
 import { NotificationManager } from "react-notifications";
 
 const API_BASE_URL = window.location.origin + "/api";
+// const API_BASE_URL = "http://localhost:8080/api";
 export const fetchAPI = async (route: string, method: string = "GET") => {
     const token = localStorage.getItem("token");
     let status: number = 500;

@@ -109,7 +109,7 @@ function CommentProfile({ comment, commentDeleted }: cpProps) {
                     <CommentedOn post={comment.post} />
                     <PostedAt createdAt={comment.createdAt} />
                 </header>
-                <div>{parse(he.decode(comment.content))}</div>
+                <div className="content">{parse(he.decode(comment.content))}</div>
             </Link>
             <div className="buttons">
                 <LikeButton
@@ -128,9 +128,9 @@ interface CommentedOnProps {
 }
 function CommentedOn({ post }: CommentedOnProps) {
     return (
-        <p>
+        <div className="post">
             on {post.postAuthorFirstName}'s: <br />"{parse(he.decode(post.contentPreview))}..."
-        </p>
+        </div>
     );
 }
 export default ActivityComments;
