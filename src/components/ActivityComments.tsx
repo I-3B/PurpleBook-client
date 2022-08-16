@@ -129,7 +129,7 @@ interface CommentedOnProps {
 function CommentedOn({ post }: CommentedOnProps) {
     return (
         <p>
-            on {post.postAuthorFirstName}'s: <br />"{post.contentPreview}..."
+            on {post.postAuthorFirstName}'s: <br />"{parse(he.decode(post.contentPreview))}..."
         </p>
     );
 }
