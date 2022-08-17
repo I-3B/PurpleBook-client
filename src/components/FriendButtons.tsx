@@ -12,7 +12,6 @@ enum FS {
     FRIEND_REQUEST_SENT,
     FRIEND_REQUEST_RECEIVED,
 }
-const userId = localStorage.getItem("userId");
 function FriendButtons({ friendId, initialFriendState }: Props) {
     const [friendState, setFriendState] = useState<FS>(FS[initialFriendState as keyof typeof FS]);
     const [text, setText] = useState("");
@@ -20,6 +19,7 @@ function FriendButtons({ friendId, initialFriendState }: Props) {
     const [defaultText, setDefaultText] = useState("");
     const [hoverText, setHoverText] = useState("");
     const [enableRemoveReceivedFR, setEnableRemoveReceivedFR] = useState(false);
+    const userId = localStorage.gtItem("userId");
     const onHover = () => {
         setHover(true);
     };
