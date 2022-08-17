@@ -27,7 +27,7 @@ function ConnectPage({ HeaderRef }: ConnectPageI) {
         isThereMoreFromList: isThereMoreFRC,
         loadMoreFromList: loadMoreFRC,
     } = useListLoading<RecommendI>(
-        10,
+        5,
         `/users/${userId}/friend_recommendation`,
         "friendRecommendation"
     );

@@ -10,7 +10,7 @@ interface friendCardProps {
 
 function FriendCard({ friend, classes, children }: friendCardProps) {
     return (
-        <article className={"friend-card " + classes}>
+        <article className={"friend-card " + (classes ? classes : "")}>
             <UserAddress user={friend} />
             {children}
             <FriendButtons
@@ -38,7 +38,11 @@ function FriendRecommendCard({ friendRecommendation }: FriendRecommendCardProps)
     return (
         <FriendCard friend={friendRecommendation}>
             <div className="mutual-friends">
-                {friendRecommendation.mutualFriends} mutual friends
+                {friendRecommendation.mutualFriends !== 0 &&
+                    friendRecommendation.mutualFriends !== undefined &&
+                    `
+                        ${friendRecommendation.mutualFriends} mutual friends
+                `}
             </div>
         </FriendCard>
     );
