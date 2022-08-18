@@ -29,7 +29,8 @@ function FriendButtons({ friendId, initialFriendState }: Props) {
     const changeFriendState = async () => {
         const friendRoute = `users/${friendId}`;
         const userRoute = `users/${userId}`;
-        let route: string, method: string;
+        let route = "",
+            method = "";
         switch (friendState) {
             case FS.NOT_FRIEND:
                 setFriendState(FS.FRIEND_REQUEST_SENT);
@@ -37,9 +38,12 @@ function FriendButtons({ friendId, initialFriendState }: Props) {
                 method = "POST";
                 break;
             case FS.FRIEND:
-                setFriendState(FS.NOT_FRIEND);
-                route = `${userRoute}/friends/${friendId}`;
-                method = "DELETE";
+                const confirmed = window.confirm("Are you sure you want to unfriend this user?");
+                if (confirmed) {
+                    setFriendState(FS.NOT_FRIEND);
+                    route = `${userRoute}/friends/${friendId}`;
+                    method = "DELETE";
+                }
                 break;
             case FS.FRIEND_REQUEST_SENT:
                 setFriendState(FS.NOT_FRIEND);
@@ -53,10 +57,12 @@ function FriendButtons({ friendId, initialFriendState }: Props) {
                 method = "POST";
                 break;
         }
-        const res = await fetchAPI(route, method);
-        if (res.status !== 200) {
-            const error = res.body.error ? res.body.error : res.body;
-            NotificationManager.error(error, res.status);
+        if (route && method) {
+            const res = await fetchAPI(route, method);
+            if (res.status !== 200) {
+                const error = res.body.error ? res.body.error : res.body;
+                NotificationManager.error(error, res.status);
+            }
         }
     };
     const removeReceivedFR = async () => {
