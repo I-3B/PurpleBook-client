@@ -49,11 +49,6 @@ function CommentList({ commentToEdit, commentUpdated, sortBy }: Props) {
     const highlight = (element: Element | null) => {
         element?.classList.add("highlight");
     };
-    const unHighlightAllComments = () => {
-        Array.from(document.querySelectorAll(".comment")).forEach((comment) =>
-            comment.classList.remove("highlight")
-        );
-    };
     const commentDeleteCallback = (deletedCommentId: string) => {
         setCommentList(() => {
             return list?.filter((comment) => {
@@ -89,7 +84,6 @@ function CommentList({ commentToEdit, commentUpdated, sortBy }: Props) {
     }, [comments, editComment]);
     useEffect(() => {
         if (goToComment) {
-            unHighlightAllComments();
             if (commentId && comments && !editComment) {
                 goTo(document.getElementById(commentId));
                 highlight(document.getElementById(commentId));
