@@ -53,7 +53,7 @@ const Header = forwardRef((_undefined, _ref) => {
             <nav>
                 <ul>
                     <li className="li-logo">
-                        <Link to="/">OdinBook</Link>
+                        <Link to="/">PurpleBook</Link>
                     </li>
                     {authed && (
                         <>
