@@ -18,15 +18,19 @@
   .comments-buttons {
     width: 100%;
     font-size: 1.2em;
+    margin: 0.5em auto;
     a {
       @extend .button-radius;
-      padding: 0.4em 2em;
+      width: 15em;
+      max-width: 60%;
+      display: block;
+      margin: auto;
+      padding: 0.5em 2em;
       background-color: var.$background-2;
       &:hover {
         background-color: var.$background-3;
       }
     }
-
   }
   .comment-form {
     margin: auto;
