@@ -49,15 +49,14 @@
   box-shadow: 64px 0 0 0 var.$primary;
 }
 .loadingio-spinner-dual-ring {
-  margin: auto;
-  width: 100px;
-  height: 100px;
+  width: 100%;
   display: inline-block;
   overflow: hidden;
 }
 .ldio {
-  width: 100%;
-  height: 100%;
+  margin: auto;
+  width: 100px;
+  height: 100px;
   position: relative;
   transform: translateZ(0) scale(1);
   backface-visibility: hidden;
