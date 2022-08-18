@@ -1,9 +1,12 @@
 import "./style/Loading.scss";
 function Loading() {
     return (
-        <div className="lds-container">
-            <div className="lds-circle">
+        <div className="loadingio-spinner-dual-ring">
+            <div className="ldio">
                 <div></div>
+                <div>
+                    <div></div>
+                </div>
             </div>
         </div>
     );
