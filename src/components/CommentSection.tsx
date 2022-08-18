@@ -2,11 +2,12 @@ import he from "he";
 import { createBrowserHistory } from "history";
 import { useEffect, useRef, useState } from "react";
 import { NotificationManager } from "react-notifications";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPIForm } from "../utils/fetchAPI";
 import CommentList from "./CommentList";
 import Editor from "./Editor";
+import SelectSortBy from "./SelectSortBy";
 import "./style/CommentSection.scss";
 import "./style/Form.scss";
 function CommentSection() {
@@ -14,10 +15,11 @@ function CommentSection() {
     const [commentFormError, setCommentFormError] = useState<Array<responseError>>();
     const [commentBeforeEditing, setCommentBeforeEditing] = useState<string>();
     const [commentUpdated, setCommentUpdated] = useState<{ id: string; content: string }>();
+    const [sort, setSort] = useState("likes");
     const { postId, commentId } = useParams();
     const navigate = useNavigate();
     const location = useLocation().pathname;
-    const goToComment = location.includes("comments");
+
     const editComment = location.includes("edit");
     const history = createBrowserHistory();
     const route = `/posts/${postId}`;
@@ -108,9 +110,14 @@ function CommentSection() {
                     </ul>
                 )}
             </form>
+            <div className="comments-buttons">
+                {commentId && <Link to={route + "/comments/"}>Show all comments</Link>}
+                {!commentId && <SelectSortBy sort={sort} setSort={setSort} />}
+            </div>
             <CommentList
                 commentToEdit={commentToEditCallback}
                 commentUpdated={commentUpdated}
+                sortBy={sort}
             ></CommentList>
         </section>
     );

@@ -10,8 +10,9 @@ import WithEmptyMessage from "./WithEmptyMessage";
 interface Props {
     commentToEdit: (commentContent: string) => void;
     commentUpdated?: { id: string; content: string };
+    sortBy: string;
 }
-function CommentList({ commentToEdit, commentUpdated }: Props) {
+function CommentList({ commentToEdit, commentUpdated, sortBy }: Props) {
     const { postId, commentId } = useParams();
     const route = `posts/${postId}/comments`;
     const [commentsRoute, setCommentsRoute] = useState("");
@@ -22,7 +23,7 @@ function CommentList({ commentToEdit, commentUpdated }: Props) {
         loadMoreFromList: loadMoreComments,
         isLoading,
         list,
-    } = useListLoading<CommentI>(10, commentsRoute, "comments");
+    } = useListLoading<CommentI>(10, commentsRoute, "comments", sortBy);
     const [comments, setComments] = useState<Array<CommentI>>([]);
 
     const location = useLocation().pathname;

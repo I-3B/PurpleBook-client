@@ -9,6 +9,7 @@ import LikeButton from "./LikeButton";
 import LinkButton from "./LinkButton";
 import Loading from "./Loading";
 import PostedAt from "./PostedAt";
+import SelectSortBy from "./SelectSortBy";
 import SettingsDropdown from "./SettingsDropdown";
 import WithEmptyMessage from "./WithEmptyMessage";
 interface postPreview {
@@ -28,12 +29,13 @@ function ActivityComments() {
     const { userId } = useParams();
     const route = `users/${userId}/comments`;
     const [comments, setComments] = useState<Array<CommentProfileI>>([]);
+    const [sort, setSort] = useState("likes");
     const {
         list,
         isThereMoreFromList: isThereMoreComments,
         loadMoreFromList,
         isLoading,
-    } = useListLoading<CommentProfileI>(10, route, "comments");
+    } = useListLoading<CommentProfileI>(10, route, "comments", sort);
 
     const commentDeletedCallback = (commentId: string) => {
         setComments((comments) => {
@@ -48,6 +50,7 @@ function ActivityComments() {
 
     return (
         <section className="comments">
+            <SelectSortBy setSort={setSort} sort={sort} />
             <WithEmptyMessage
                 show={!comments.length && !isLoading}
                 message="No comments, for now..."

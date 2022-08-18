@@ -5,17 +5,19 @@ import PostI from "../interfaces/Post";
 import Loading from "./Loading";
 import PostCard from "./PostCard";
 import PostedAt from "./PostedAt";
+import SelectSortBy from "./SelectSortBy";
 import WithEmptyMessage from "./WithEmptyMessage";
 function ActivityPosts() {
     const { userId } = useParams();
     const route = `users/${userId}/posts`;
     const [posts, setPosts] = useState<Array<PostI>>([]);
+    const [sort, setSort] = useState("likes");
     const {
         list,
         isLoading,
         isThereMoreFromList: isThereMorePosts,
         loadMoreFromList,
-    } = useListLoading<PostI>(10, route, "posts");
+    } = useListLoading<PostI>(5, route, "posts", sort);
 
     const postDeletedCallback = (postId: string) => {
         setPosts((posts) => {
@@ -30,6 +32,7 @@ function ActivityPosts() {
 
     return (
         <section className="posts">
+            <SelectSortBy setSort={setSort} sort={sort} />
             <WithEmptyMessage show={!posts.length && !isLoading} message="No posts, for now...">
                 {posts.map((post) => {
                     return (

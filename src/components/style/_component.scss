@@ -9,6 +9,7 @@
   transition: 0.3s;
 }
 .button-colored {
+  @extend .button;
   background-color: var.$primary;
   &:hover {
     background-color: lighten($color: var.$primary, $amount: 10%);

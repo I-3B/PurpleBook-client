@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { NotificationManager } from "react-notifications";
+import usePrevious from "../components/usePrevious";
 import { fetchAPI } from "../utils/fetchAPI";
-function useListLoading<Type>(limit: number, route: string, listType: string) {
+function useListLoading<Type>(limit: number, route: string, listType: string, sort?: string) {
     const [list, setList] = useState<Array<Type>>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [skip, setSkip] = useState(0);
+    const [sortChanged, setSortChanged] = useState(false);
     const [isThereMoreFromList, setIsThereMorePosts] = useState(true);
+    const previousSort = usePrevious(sort);
     const fetchMoreToList = async (skip: number) => {
         setIsLoading(true);
-        const res = await fetchAPI(`${route}/?limit=${limit}&skip=${skip}`);
+        const res = await fetchAPI(`${route}/?limit=${limit}&skip=${skip}&sort=${sort}`);
         setIsLoading(false);
         if (res.status !== 200) {
             return NotificationManager.error(`${res.status} ${res.body}`);
@@ -28,8 +31,21 @@ function useListLoading<Type>(limit: number, route: string, listType: string) {
         }
     };
     useEffect(() => {
-        if (route) fetchMoreToList(skip);
-    }, [skip, route]);
+        if (sort && previousSort) {
+            setSkip(0);
+            setList([]);
+            setSortChanged((sortChanged) => !sortChanged);
+        }
+    }, [sort]);
+    useEffect(() => {
+        if (route) {
+            fetchMoreToList(skip);
+        }
+    }, [skip, route, sortChanged]);
+    useEffect(() => {
+        setSkip(0);
+        setList([]);
+    }, [route]);
     return {
         isThereMoreFromList,
         list,
@@ -42,4 +58,5 @@ function useListLoading<Type>(limit: number, route: string, listType: string) {
         },
     };
 }
+
 export default useListLoading;
