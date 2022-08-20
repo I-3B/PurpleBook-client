@@ -43,9 +43,15 @@
     border-radius: 3px;
     border: 3px solid var.$primary;
   }
+  .buttons {
+    * {
+      margin: 0 !important;
+    }
+    display: flex;
+    justify-content: space-between;
+  }
   .delete {
     background-color: rgb(152, 0, 0);
-    margin-right: 0;
   }
   ul {
     list-style-type: "- ";

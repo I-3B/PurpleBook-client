@@ -109,10 +109,12 @@ function EditUser({ HeaderRef }: EditUserProps) {
             <label htmlFor="image">Update image:</label>
             <input id="image" type="file" name="image" accept=".jpg, .jpeg, .png"></input>
             {formLoading}
-            <button type="button" className="delete" onClick={deleteUser}>
-                Delete account
-            </button>
-            <input type="submit" value="Save update"></input>
+            <div className="buttons">
+                <input type="submit" value="Save update"></input>
+                <button type="button" className="delete" onClick={deleteUser}>
+                    Delete account
+                </button>
+            </div>
         </form>
     );
 }
