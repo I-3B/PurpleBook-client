@@ -1,3 +1,5 @@
+@use "var";
 .posted-at {
+  color: transparentize($color: var.$text, $amount: 0.2%);
   cursor: default;
 }
