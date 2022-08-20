@@ -45,7 +45,7 @@ function CommentCard({ comment, postId, commentDeleted }: Props) {
                 <UserAddress user={comment.author} />
                 <PostedAt createdAt={comment.createdAt} />
             </header>
-            <div>{parse(he.decode(comment.content))}</div>
+            <div className="content">{parse(he.decode(comment.content))}</div>
             <div className="buttons">
                 <LikeButton
                     route={`${route}/likes`}
