@@ -11,7 +11,7 @@ $transition: 0.4s;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: right;
+    justify-content: left;
     gap: 1rem;
     margin: 0;
     list-style: none;
@@ -33,7 +33,7 @@ $transition: 0.4s;
   }
 
   .li-logo {
-    margin-right: auto;
+    flex: 1;
   }
   .number-in-icon {
     position: relative;
