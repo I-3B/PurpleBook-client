@@ -1,5 +1,4 @@
 @use "/src/components/style/var";
-
 * {
   color: var.$text;
 }
@@ -11,4 +10,10 @@ a {
 }
 .App {
   max-width: 100%;
+}
+.notification {
+  font-size: 1.1em;
+  color: var.$text;
+  box-shadow: none;
+  border-radius: 7px;
 }
