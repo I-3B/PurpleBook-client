@@ -11,12 +11,13 @@
   box-sizing: border-box;
   header {
     font-size: 0.75rem;
-    .posted-at {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      z-index: 2;
-    }
+  }
+  .posted-at {
+    position: absolute;
+    left: 60px;
+    right: 0;
+    top: 10px;
+    z-index: 2;
   }
   a {
     text-decoration: none;

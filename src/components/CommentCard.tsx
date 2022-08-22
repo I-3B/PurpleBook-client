@@ -42,8 +42,9 @@ function CommentCard({ comment, postId, commentDeleted }: Props) {
                 </li>
             </SettingsDropdown>
             <header>
-                <UserAddress user={comment.author} />
-                <PostedAt createdAt={comment.createdAt} />
+                <UserAddress user={comment.author}>
+                    <PostedAt createdAt={comment.createdAt} />
+                </UserAddress>
             </header>
             <div className="content">{parse(he.decode(comment.content))}</div>
             <div className="buttons">

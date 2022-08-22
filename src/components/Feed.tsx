@@ -44,8 +44,9 @@ function Feed() {
                             postDeleted={postDeletedCallback}
                         >
                             <header>
-                                <UserAddress user={post.author} />
-                                <PostedAt createdAt={post.createdAt} />
+                                <UserAddress user={post.author}>
+                                    <PostedAt createdAt={post.createdAt} />
+                                </UserAddress>
                             </header>
                         </PostCard>
                     );
