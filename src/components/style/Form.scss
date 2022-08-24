@@ -53,6 +53,23 @@
   .delete {
     background-color: rgb(152, 0, 0);
   }
+  .or {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    hr {
+      flex-basis: 50%;
+      margin: 0 auto;
+    }
+  }
+  .facebook {
+    display: flex;
+    align-items: center;
+    background-color: #3f62a9;
+    i {
+      margin-right: 10px;
+    }
+  }
   ul {
     list-style-type: "- ";
     padding-left: 1rem;

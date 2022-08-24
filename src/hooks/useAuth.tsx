@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UserI from "../interfaces/User";
-import { fetchAPIForm } from "../utils/fetchAPI";
+import { fetchAPI, fetchAPIForm } from "../utils/fetchAPI";
 
 const authContext = React.createContext<any>(null);
 interface Props {
@@ -15,6 +15,18 @@ function useAuth() {
         authed,
         login: async (form: UserI) => {
             const res = await fetchAPIForm("auth/login", "POST", form);
+            if (res.status === 200) {
+                localStorage.setItem("userId", res.body.userId);
+                localStorage.setItem("token", res.body.token);
+                res.body.isAdmin && localStorage.setItem("isAdmin", res.body.isAdmin);
+                setAuthed(true);
+            } else {
+                setAuthed(false);
+            }
+            return res;
+        },
+        loginWithFacebook: async (token: string) => {
+            const res = await fetchAPI("auth/facebook?access_token=" + token, "POST");
             if (res.status === 200) {
                 localStorage.setItem("userId", res.body.userId);
                 localStorage.setItem("token", res.body.token);

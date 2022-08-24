@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { responseError } from "../interfaces/responseError";
 import Loading from "./Loading";
+import LoginWithFacebook from "./LoginWithFacebook";
 import "./style/Form.scss";
 function Login() {
     const [formLoading, setFormLoading] = useState<ReactElement<any, any>>();
     const [formError, setFormError] = useState<loginFormError>();
     const { authed, login } = useAuth();
     const [loggedIn, setLoggedIn] = useState(authed);
+
     const formSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setFormLoading(<Loading />);
@@ -46,6 +48,12 @@ function Login() {
             <p>
                 Don't have an account? <Link to="/signup">Signup</Link>
             </p>
+            <div className="or">
+                <hr></hr>
+                <p>or</p>
+                <hr></hr>
+            </div>
+            <LoginWithFacebook />
         </form>
     );
 }

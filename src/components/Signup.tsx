@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPIMultiPart } from "../utils/fetchAPI";
 import Loading from "./Loading";
+import LoginWithFacebook from "./LoginWithFacebook";
 import "./style/Form.scss";
 
 function Signup() {
@@ -19,6 +20,7 @@ function Signup() {
         setFormErrors(null);
         const formData = new FormData(e.currentTarget);
         const res = await fetchAPIMultiPart("auth/signup", "POST", formData);
+        setFormLoading(<></>);
 
         if (res.status === 400) {
             return readErrorMessages(res.body.errors, setFormErrors);
@@ -26,7 +28,6 @@ function Signup() {
         if (res.status !== 201) {
             return NotificationManager.error(`${res.status} ${res.body}`);
         }
-        setFormLoading(<></>);
 
         const email = formData.get("email");
         const password = formData.get("password");
@@ -71,6 +72,12 @@ function Signup() {
             <p>
                 Already a user? <Link to="/login">Login</Link>
             </p>
+            <div className="or">
+                <hr></hr>
+                <p>or</p>
+                <hr></hr>
+            </div>
+            <LoginWithFacebook />
         </form>
     );
 }
