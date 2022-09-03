@@ -40,7 +40,7 @@ function PostCard({ author, post, children, postDeleted, linkToPost = true }: Pr
                     <Link to={`${route}/edit`}>Edit</Link>
                 </li>
                 <li>
-                    <button onClick={deletePost}>delete</button>
+                    <button onClick={deletePost}>Delete</button>
                 </li>
             </SettingsDropdown>
             {children}
