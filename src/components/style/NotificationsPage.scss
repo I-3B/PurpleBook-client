@@ -19,9 +19,9 @@
   }
   .notification-card {
     @extend %card;
+    padding: 0;
     width: 100%;
     max-width: 100%;
-    padding-bottom: 2em;
     min-height: 6em;
     background-color: var.$background-2;
     position: relative;
@@ -39,20 +39,22 @@
       text-align: end;
     }
     .notification-link {
-      z-index: 2;
-      inset: 0;
-      margin-left: 5.4em;
       display: flex;
+      width: 100%;
+      min-height: 6em;
+      padding-top: 0.5em;
+      padding-bottom: 2em;
       span {
-        align-self: center;
-        display: inline-block;
+        margin-left: 6.5em;
+        align-self: flex-start;
+        justify-self: start;
         font-size: 1em;
       }
     }
     .image-link {
       position: absolute;
-      margin-left: 0rem;
-      margin-top: 0rem;
+      top: 0.5em;
+      left: 0.5em;
       z-index: 1;
       border-radius: 50%;
       width: fit-content;
