@@ -48,7 +48,9 @@
       margin: 0 !important;
     }
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
   }
   .delete {
     background-color: rgb(152, 0, 0);
