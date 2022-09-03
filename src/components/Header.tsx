@@ -46,6 +46,7 @@ const Header = forwardRef((_undefined, _ref) => {
         },
     }));
     useEffect(() => {
+        setUserData(undefined);
         if (authed) getUserData();
     }, [authed]);
     return (
