@@ -10,7 +10,7 @@ export default function LoginWithFacebook() {
         if (res.status === 200) {
             navigate("/");
         } else {
-            NotificationManager.error("Something went wrong, maybe Email is already used");
+            NotificationManager.error("Something went wrong :(");
         }
     };
     return (
