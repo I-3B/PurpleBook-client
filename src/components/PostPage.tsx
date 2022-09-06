@@ -3,6 +3,7 @@ import { NotificationManager } from "react-notifications";
 import { useNavigate, useParams } from "react-router-dom";
 import PostI from "../interfaces/Post";
 import { fetchAPI } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import CommentSection from "./CommentSection";
 import Loading from "./Loading";
 import Message from "./Message";
@@ -25,7 +26,7 @@ function PostPage() {
         } else if (res.status === 200) {
             setPost(res.body.post);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
 

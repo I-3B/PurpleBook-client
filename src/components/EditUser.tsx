@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import { responseError } from "../interfaces/responseError";
 import { BufferData } from "../interfaces/User";
 import { fetchAPI, fetchAPIMultiPart } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import { HeaderRefI } from "./Header";
 import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
@@ -30,7 +31,7 @@ function EditUser({ HeaderRef }: EditUserProps) {
         if (res.status === 200) {
             setFormData(res.body.user);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
     const formSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {

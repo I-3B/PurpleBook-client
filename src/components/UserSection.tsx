@@ -3,6 +3,7 @@ import { NotificationManager } from "react-notifications";
 import { useParams } from "react-router-dom";
 import { BufferData } from "../interfaces/User";
 import { fetchAPI } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import FriendButtons from "./FriendButtons";
 import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
@@ -25,7 +26,7 @@ function UserSection({ setFound }: Props) {
         } else if (res.status === 404) {
             setFoundLocal(false);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
     useEffect(() => {

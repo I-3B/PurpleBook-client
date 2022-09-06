@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NotificationManager } from "react-notifications";
 import usePrevious from "../components/usePrevious";
 import { fetchAPI } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 function useListLoading<Type>(limit: number, route: string, listType: string, sort?: string) {
     const [list, setList] = useState<Array<Type>>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +15,7 @@ function useListLoading<Type>(limit: number, route: string, listType: string, so
         const res = await fetchAPI(`${route}/?limit=${limit}&skip=${skip}&sort=${sort}`);
         if (res.status !== 200) {
             setIsLoading(false);
-            return NotificationManager.error(`${res.status} ${res.body}`);
+            return NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
         if (
             res.body[listType] == null ||

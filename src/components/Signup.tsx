@@ -4,6 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPIMultiPart } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import Loading from "./Loading";
 import LoginWithFacebook from "./LoginWithFacebook";
 import "./style/Form.scss";
@@ -27,7 +28,7 @@ function Signup() {
         }
         if (res.status !== 201) {
             setFormLoading(<></>);
-            return NotificationManager.error(`${res.status} ${res.body}`);
+            return NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
 
         const email = formData.get("email");
@@ -35,7 +36,7 @@ function Signup() {
         const loginRes = await login({ email, password });
         if (loginRes.status === 200) setLoggedIn(true);
         else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
 

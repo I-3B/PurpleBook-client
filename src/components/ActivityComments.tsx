@@ -5,6 +5,7 @@ import { NotificationManager } from "react-notifications";
 import { Link, useParams } from "react-router-dom";
 import useListLoading from "../hooks/useListLoading";
 import { fetchAPI } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import LikeButton from "./LikeButton";
 import LinkButton from "./LinkButton";
 import Loading from "./Loading";
@@ -89,7 +90,7 @@ function CommentProfile({ comment, commentDeleted }: cpProps) {
             NotificationManager.success("", "Post deleted");
             commentDeleted(comment._id);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
     const updatedLikesCountCallback = (updateBy: number) => {

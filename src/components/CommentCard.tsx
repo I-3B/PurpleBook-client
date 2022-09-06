@@ -5,6 +5,7 @@ import { NotificationManager } from "react-notifications";
 import { Link } from "react-router-dom";
 import CommentI from "../interfaces/Comment";
 import { fetchAPI } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import LikeButton from "./LikeButton";
 import LinkButton from "./LinkButton";
 import PostedAt from "./PostedAt";
@@ -28,7 +29,7 @@ function CommentCard({ comment, postId, commentDeleted }: Props) {
             commentDeleted(comment._id);
             NotificationManager.success("", "Comment deleted", 1000);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
     return (

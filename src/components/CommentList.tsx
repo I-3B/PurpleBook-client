@@ -4,6 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import useListLoading from "../hooks/useListLoading";
 import CommentI from "../interfaces/Comment";
 import { fetchAPI } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import CommentCard from "./CommentCard";
 import Loading from "./Loading";
 import WithEmptyMessage from "./WithEmptyMessage";
@@ -37,7 +38,7 @@ function CommentList({ commentToEdit, commentUpdated, sortBy }: Props) {
             setLocalIsLoading(false);
             setComments([res.body.comment]);
         } else {
-            NotificationManager.error(`${res.status}: Comment ${res.body}`);
+            NotificationManager.error(`${res.status}: Comment ${isString(res.body)}`);
         }
     };
     const goTo = (element: Element | null) => {

@@ -3,6 +3,7 @@ import { NotificationManager } from "react-notifications";
 import { useNavigate } from "react-router-dom";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPIMultiPart } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import Editor from "./Editor";
 import Loading from "./Loading";
 import "./style/Form.scss";
@@ -30,7 +31,7 @@ function NewPost() {
         } else if (res.status === 201) {
             navigate(`/posts/${res.body.postId}`);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
     return (

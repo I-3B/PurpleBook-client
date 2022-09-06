@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import PostI from "../interfaces/Post";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPI, fetchAPIForm } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import Editor from "./Editor";
 import ImageBfr from "./ImageBfr";
 import Loading from "./Loading";
@@ -23,7 +24,7 @@ function EditPost() {
         if (res.status === 200) {
             setPost(res.body.post);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
     const formSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +42,7 @@ function EditPost() {
         } else if (res.status === 400) {
             setErrors(res.body.errors);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
         submitButton.disabled = false;
     };

@@ -5,6 +5,7 @@ import { NotificationManager } from "react-notifications";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { responseError } from "../interfaces/responseError";
 import { fetchAPIForm } from "../utils/fetchAPI";
+import { isString } from "../utils/isString";
 import CommentList from "./CommentList";
 import Editor from "./Editor";
 import SelectSortBy from "./SelectSortBy";
@@ -42,7 +43,7 @@ function CommentSection() {
             editorTextRef.current?.setText("");
             navigate(`${route}/comments/${res.body.commentId}`);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
     const editCommentSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +65,7 @@ function CommentSection() {
             setCommentUpdated({ id: commentId || "", content: editorText });
             navigate(`${route}/comments/${commentId}`);
         } else {
-            NotificationManager.error(`${res.status} ${res.body}`);
+            NotificationManager.error(`${res.status} ${isString(res.body)}`);
         }
     };
     const cancelCommentEditing = () => {
