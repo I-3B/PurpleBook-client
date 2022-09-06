@@ -54,14 +54,14 @@ function ConnectPage({ HeaderRef }: ConnectPageI) {
                 </WithEmptyMessage>
             </section>
             <section className="friend-recommendation">
-                <header>Friend recommendation</header>
+                <header>Friend recommendations</header>
                 <WithEmptyMessage show={!FRC.length && !FRCIsLoading} message="Wow, such empty ⚆_⚆">
                     {FRC.map((FRC) => {
                         return <FriendRecommendCard friendRecommendation={FRC} key={FRC._id} />;
                     })}
                     {FRCIsLoading && <Loading />}
                     {isThereMoreFRC && !FRCIsLoading && (
-                        <button onClick={loadMoreFRC}>Show more recommendation</button>
+                        <button onClick={loadMoreFRC}>Show more recommendations</button>
                     )}
                 </WithEmptyMessage>
             </section>
