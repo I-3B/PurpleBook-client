@@ -12,19 +12,21 @@ function useListLoading<Type>(limit: number, route: string, listType: string, so
     const fetchMoreToList = async (skip: number) => {
         setIsLoading(true);
         const res = await fetchAPI(`${route}/?limit=${limit}&skip=${skip}&sort=${sort}`);
-        setIsLoading(false);
         if (res.status !== 200) {
+            setIsLoading(false);
             return NotificationManager.error(`${res.status} ${res.body}`);
         }
         if (
             res.body[listType] == null ||
             typeof res.body[listType][Symbol.iterator] !== "function"
         ) {
+            setIsLoading(false);
             return NotificationManager.error("Something went wrong :(");
         }
         setList((list) => {
             return [...list, ...res.body[listType]];
         });
+        setIsLoading(false);
 
         if (res.body[listType].length < limit) {
             setIsThereMorePosts(false);
