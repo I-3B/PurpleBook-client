@@ -10,7 +10,8 @@ function ActivityFriends() {
     const [friends, setFriends] = useState<Array<UserWithStateI>>([]);
     const { userId } = useParams();
     const route = `users/${userId}/friends`;
-    const { list, isLoading } = useListLoading<UserWithStateI>(0, route, "friends");
+    const { list, isLoading, isThereMoreFromList, loadMoreFromList } =
+        useListLoading<UserWithStateI>(5, route, "friends");
 
     useEffect(() => {
         setFriends(list);
@@ -21,7 +22,11 @@ function ActivityFriends() {
                 {friends.map((friend) => {
                     return <FriendCard friend={friend} key={friend._id} />;
                 })}
-
+                {isThereMoreFromList && !isLoading && (
+                    <button className="load-more" onClick={loadMoreFromList}>
+                        Show more friends
+                    </button>
+                )}
                 {isLoading && <Loading />}
             </WithEmptyMessage>
         </section>
