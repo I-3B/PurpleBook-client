@@ -20,12 +20,13 @@ function Signup() {
         setFormErrors(null);
         const formData = new FormData(e.currentTarget);
         const res = await fetchAPIMultiPart("auth/signup", "POST", formData);
-        setFormLoading(<></>);
 
         if (res.status === 400) {
+            setFormLoading(<></>);
             return readErrorMessages(res.body.errors, setFormErrors);
         }
         if (res.status !== 201) {
+            setFormLoading(<></>);
             return NotificationManager.error(`${res.status} ${res.body}`);
         }
 
@@ -77,7 +78,7 @@ function Signup() {
                 <p>or</p>
                 <hr></hr>
             </div>
-            <LoginWithFacebook />
+            <LoginWithFacebook setLoading={setFormLoading} />
         </form>
     );
 }

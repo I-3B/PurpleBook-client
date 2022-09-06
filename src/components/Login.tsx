@@ -8,7 +8,7 @@ import LoginWithFacebook from "./LoginWithFacebook";
 import "./style/Form.scss";
 function Login() {
     const [formLoading, setFormLoading] = useState<ReactElement<any, any>>();
-    const [formError, setFormError] = useState<loginFormError>();
+    const [formErrors, setFormErrors] = useState<loginFormError>();
     const { authed, login } = useAuth();
     const [loggedIn, setLoggedIn] = useState(authed);
 
@@ -20,7 +20,7 @@ function Login() {
         const res = await login(formAsJSON);
         setFormLoading(<></>);
         if (res.status === 400 || res.status === 404) {
-            readErrorMessage(res.body.error, setFormError);
+            readErrorMessages(res.body.errors, setFormErrors);
         } else if (res.status === 200) {
             setLoggedIn(true);
         }
@@ -37,11 +37,11 @@ function Login() {
                 name="email"
                 required
             ></input>
-            {formError?.email}
+            {formErrors?.email}
 
             <label htmlFor="password">Password:</label>
             <input id="password" type="password" name="password" required></input>
-            {formError?.password}
+            {formErrors?.password}
 
             {formLoading}
             <input type="submit" value="login"></input>
@@ -53,7 +53,7 @@ function Login() {
                 <p>or</p>
                 <hr></hr>
             </div>
-            <LoginWithFacebook />
+            <LoginWithFacebook setLoading={setFormLoading} />
         </form>
     );
 }
@@ -62,27 +62,31 @@ interface loginFormError {
     password?: ReactElement<any, any>;
 }
 
-const readErrorMessage = (error: responseError, setError: Dispatch<SetStateAction<any>>) => {
-    let errorMsg;
-    if (error.param === "email") {
-        errorMsg = {
-            email: (
-                <p className="error">
-                    {"- "}
-                    {error.msg}
-                </p>
-            ),
-        };
-    } else if (error.param === "password") {
-        errorMsg = {
-            password: (
-                <p className="error">
-                    {"- "}
-                    {error.msg}
-                </p>
-            ),
-        };
-    }
-    setError(errorMsg);
+const readErrorMessages = (
+    errors: Array<responseError>,
+    setErrors: Dispatch<SetStateAction<any>>
+) => {
+    const errorMsgs: { [key: string]: Array<string> } = {
+        email: [],
+        password: [],
+    };
+    const errorElements: { [key: string]: ReactElement<any, any> } = {
+        email: <></>,
+        password: <></>,
+    };
+    errors.forEach((err) => {
+        errorMsgs[err.param].push(err.msg);
+    });
+    Object.keys(errorElements).forEach((param) => {
+        errorElements[param] = (
+            <ul className="error">
+                {errorMsgs[param].map((msg) => (
+                    <li key={msg}>{msg}</li>
+                ))}
+            </ul>
+        );
+    });
+    setErrors(errorElements);
 };
+
 export default Login;
