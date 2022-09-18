@@ -1,6 +1,10 @@
 @use "var";
 $transition: 0.4s;
 .page-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
   background-color: var.$primary;
   padding: 0.3rem;
   * {
@@ -9,7 +13,7 @@ $transition: 0.4s;
   }
   ul {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: left;
     gap: 1rem;
@@ -35,6 +39,7 @@ $transition: 0.4s;
   .li-logo {
     flex: 1;
   }
+
   .number-in-icon {
     position: relative;
     img {

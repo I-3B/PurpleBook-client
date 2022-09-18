@@ -24,6 +24,9 @@ const Header = forwardRef((_undefined, _ref) => {
     const logoutClicked = () => {
         logout();
     };
+    const goToTopIfInHome = () => {
+        if (window.location.pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
+    };
     useImperativeHandle(_ref, () => ({
         updateUserData: () => {
             getUserData();
@@ -58,6 +61,13 @@ const Header = forwardRef((_undefined, _ref) => {
                     </li>
                     {authed && (
                         <>
+                            <li>
+                                {/* <button onClick={scrollToTop} className="home-button"> */}
+                                <Link to={"/"} className="number-in-icon" onClick={goToTopIfInHome}>
+                                    <img src="/assets/home.png" alt="home" />
+                                </Link>
+                                {/* </button> */}
+                            </li>
                             <li>
                                 <Link to="/notifications" className="number-in-icon">
                                     <img src="/assets/bell.png" alt="bell" />
