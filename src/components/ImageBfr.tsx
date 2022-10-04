@@ -6,7 +6,7 @@ interface Props {
 }
 
 function ImageBfr({ image, type }: Props) {
-    if (!image || !image.contentType.startsWith("image")) {
+    if (!image?.data || !image.contentType) {
         return getImageForType(type);
     }
     let b64;
